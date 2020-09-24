@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Version control: -->
+<head profile="http://dublincore.org/documents/dcq-html/">
+
+	<title>BBC - Comedy - 404 - Page not found</title>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta name="description" content="BBC Comedy 404 Error" />
+	<meta name="keywords" content="404 Error" />
+	<meta name="created"     content="2010-04-08" />
+	<meta name="updated"     content="2010-04-08" />
+	
+	<!-- Determine the host for client-side (static) dependencies  -->
+
+	
+		
+	
+
+
+<!-- Metatags - MUST BE BEFORE ANY SCRIPTING -->
+<meta name="DCTERMS.created" content="2010-04-08" />
+<meta name="updated" content="2012-01-05" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!-- Barlesque: -->
+
+
+
+
+                                    <!-- Glow cachebust:    
+                -->               <!-- Barlesque 2.30.4 -->         <link rel="schema.dcterms" href="http://purl.org/dc/terms/" />  <link rel="index" href="http://www.bbc.co.uk/a-z/" title="A to Z" /> <link rel="help" href="http://www.bbc.co.uk/help/" title="BBC Help" /> <link rel="copyright" href="http://www.bbc.co.uk/terms/" title="Terms of Use" /> <link rel="icon" href="http://www.bbc.co.uk/favicon.ico" type="image/x-icon" />  <meta name="viewport" content="width = 974" />    <link rel="stylesheet" type="text/css" href="http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/style/main.css"  />  <script type="text/javascript">/*<![CDATA[*/ if (typeof bbccookies_flag === 'undefined') { bbccookies_flag = 'ON'; } showCTA_flag = true; cta_enabled = (showCTA_flag && (bbccookies_flag === 'ON') ); (function(){var e="ckns_policy",m="Thu, 01 Jan 1970 00:00:00 GMT",k={ads:true,personalisation:true,performance:true,necessary:true};function f(p){if(f.cache[p]){return f.cache[p]}var o=p.split("/"),q=[""];do{q.unshift((o.join("/")||"/"));o.pop()}while(q[0]!=="/");f.cache[p]=q;return q}f.cache={};function a(p){if(a.cache[p]){return a.cache[p]}var q=p.split("."),o=[];while(q.length&&"|co.uk|com|".indexOf("|"+q.join(".")+"|")===-1){if(q.length){o.push(q.join("."))}q.shift()}f.cache[p]=o;return o}a.cache={};function i(o,t,p){var z=[""].concat(a(window.location.hostname)),w=f(window.location.pathname),y="",r,x;for(var s=0,v=z.length;s<v;s++){r=z[s];for(var q=0,u=w.length;q<u;q++){x=w[q];y=o+"="+t+";"+(r?"domain="+r+";":"")+(x?"path="+x+";":"")+(p?"expires="+p+";":"");bbccookies.set(y,true)}}}window.bbccookies={_setEverywhere:i,cookiesEnabled:function(){var o="ckns_testcookie"+Math.floor(Math.random()*100000);this.set(o+"=1");if(this.get().indexOf(o)>-1){g(o);return true}return false},set:function(o){return document.cookie=o},get:function(){return document.cookie},_setPolicy:function(o){return h.apply(this,arguments)},readPolicy:function(o){return b.apply(this,arguments)},_deletePolicy:function(){i(e,"",m)},isAllowed:function(){return true},_isConfirmed:function(){return c()!==null},_acceptsAll:function(){var o=b();return o&&!(j(o).indexOf("0")>-1)},_getCookieName:function(){return d.apply(this,arguments)},_showPrompt:function(){return(!this._isConfirmed()&&window.cta_enabled&&this.cookiesEnabled()&&!window.bbccookies_disable)}};bbccookies._getPolicy=bbccookies.readPolicy;function d(p){var o=(""+p).match(/^([^=]+)(?==)/);return(o&&o.length?o[0]:"")}function j(o){return""+(o.ads?1:0)+(o.personalisation?1:0)+(o.performance?1:0)}function h(r){if(typeof r==="undefined"){r=k}if(typeof arguments[0]==="string"){var o=arguments[0],q=arguments[1];if(o==="necessary"){q=true}r=b();r[o]=q}else{if(typeof arguments[0]==="object"){r.necessary=true}}var p=new Date();p.setYear(p.getFullYear()+1);p=p.toUTCString();bbccookies.set(e+"="+j(r)+";domain=bbc.co.uk;path=/;expires="+p+";");bbccookies.set(e+"="+j(r)+";domain=bbc.com;path=/;expires="+p+";");return r}function l(o){if(o===null){return null}var p=o.split("");return{ads:!!+p[0],personalisation:!!+p[1],performance:!!+p[2],necessary:true}}function c(){var o=new RegExp("(?:^|; ?)"+e+"=(\\d\\d\\d)($|;)"),p=document.cookie.match(o);if(!p){return null}return p[1]}function b(o){var p=l(c());if(!p){p=k}if(o){return p[o]}else{return p}}function g(o){return document.cookie=o+"=;expires="+m+";"}function n(){var o='<script type="text/javascript" src="http://static.bbci.co.uk/frameworks/bbccookies/0.5.8/script/bbccookies.js"><\/script>';if(window.bbccookies_flag==="ON"&&!bbccookies._acceptsAll()&&!window.bbccookies_disable){document.write(o)}}n()})(); /*]]>*/</script>      <script type="text/javascript"> if (! window.gloader) { window.gloader = [ "glow", {map: "http://node1.bbcimg.co.uk/glow/glow/map.1.7.7.js"}]; } </script>  <script type="text/javascript" src="http://node1.bbcimg.co.uk/glow/gloader.0.1.6.js"></script>   <script type="text/javascript" src="http://static.bbci.co.uk/frameworks/requirejs/0.12.1/sharedmodules/require.js"></script> <script type="text/javascript">  bbcRequireMap = {"jquery-1":"http://static.bbci.co.uk/frameworks/jquery/0.2.1/sharedmodules/jquery-1.7.2", "jquery-1.4":"http://static.bbci.co.uk/frameworks/jquery/0.2.1/sharedmodules/jquery-1.4", "swfobject-2":"http://static.bbci.co.uk/frameworks/swfobject/0.1.4/sharedmodules/swfobject-2", "demi-1":"http://static.bbci.co.uk/frameworks/demi/0.9.8/sharedmodules/demi-1", "gelui-1":"http://static.bbci.co.uk/frameworks/gelui/0.9.9/sharedmodules/gelui-1", "cssp!gelui-1/overlay":"http://static.bbci.co.uk/frameworks/gelui/0.9.9/sharedmodules/gelui-1/overlay.css", "istats-1":"http://static.bbci.co.uk/frameworks/istats/0.16.1/modules/istats-1", "relay-1":"http://static.bbci.co.uk/frameworks/relay/0.2.4/sharedmodules/relay-1", "clock-1":"http://static.bbci.co.uk/frameworks/clock/0.1.9/sharedmodules/clock-1", "canvas-clock-1":"http://static.bbci.co.uk/frameworks/clock/0.1.9/sharedmodules/canvas-clock-1", "cssp!clock-1":"http://static.bbci.co.uk/frameworks/clock/0.1.9/sharedmodules/clock-1.css", "jssignals-1":"http://static.bbci.co.uk/frameworks/jssignals/0.3.6/modules/jssignals-1", "jcarousel-1":"http://static.bbci.co.uk/frameworks/jcarousel/0.1.10/modules/jcarousel-1"}; require({ baseUrl: 'http://static.bbci.co.uk/', paths: bbcRequireMap, waitSeconds: 30 }); </script>      <script type="text/javascript" src="http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/script/blq_core.js"></script>
+  <!--[if (IE 6)|(IE 7)|(IE 8)]> <style type="text/css"> html{font-size:125%} body{font-size:50%} .blq-tooltipped:hover {background-position:0 0} #blq-autosuggest ul li { zoom:normal; } .skylightTheme #blq-mast-home, .doveTheme #blq-mast-home, .tealTheme #blq-mast-home, .aquaTheme #blq-mast-home, .greenTheme #blq-mast-home, .violetTheme #blq-mast-home, .purpleTheme #blq-mast-home, .pinkTheme #blq-mast-home, .oliveTheme #blq-mast-home, .suedeTheme #blq-mast-home, .redTheme #blq-mast-home, .orangeTheme #blq-mast-home { filter: none; -ms-filter: ""; } #blq-nav-main { background-position: 96% 17px; } </style> <![endif]--> <!--[if IE 7]> <link rel="stylesheet" href="http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/style/ie7.css" type="text/css" /> <style type="text/css"> .blq-clearfix {display: inline-block} </style> <![endif]-->  <!--[if IE 6]> <link rel="stylesheet" href="http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/style/ie6.css" type="text/css" /> <style type="text/css"> .blq-js #blq-nav-foot div {filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/img/panel.png', sizingMethod='image');margin-top:-139px}  #blq-container {height: 15%} #blq-mast-home span.blq-home { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod='crop', src='http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/img/blocks.png');} #blq-mast #blq-search-btn { background: none; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/img/blq-search_grey_alpha.png', sizingMethod='image'); } </style>  <script type="text/javascript"> try { document.execCommand("BackgroundImageCache",false,true); } catch(e) {} </script> <![endif]-->  <script type="text/javascript"> blq.assetPath="http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/"; blqOnDomReady(function() {  blq.suggest_short = false; blq.addAutoSuggest(); });  blq.setEnvironment('live');  if (! /bbc\.co\.uk$/i.test(window.location.hostname) ) { document.documentElement.className += ' blq-not-bbc-co-uk'; }  </script>     
+    
+        
+
+                
+
+    
+
+				<link type="text/css" rel="stylesheet" media="screen" href="http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/style/id-gel.css" /> <!--[if IE]> <style type="text/css" media="screen"> body .panel-identity .hd h2{ background-image: url(http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/img/panel/logo-bbcid.gif); /* Even 8bit alpha transparent PNGs are no good here */ } .panel-id-hint .panel-bd, .panel-id-hint .panel-hd, .panel-id-hint .panel-ft{ background-image: url(http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/img/panel/bg-hint.gif); } </style> <![endif]--> <!--[if lte IE 6]> <style type="text/css" media="screen"> /* Secure Glow fixes */ div.panel-identity .infoPanel-pointerT { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.bbc.co.uk/glow/1.0.2/widgets/images/darkpanel/at.png', sizingMethod='crop'); } div.panel-identity .infoPanel-pointerR { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.bbc.co.uk/glow/1.0.2/widgets/images/darkpanel/ar.png', sizingMethod='crop'); } div.panel-identity .infoPanel-pointerB { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.bbc.co.uk/glow/1.0.2/widgets/images/darkpanel/ab.png', sizingMethod='crop'); } div.panel-identity .infoPanel-pointerL { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://www.bbc.co.uk/glow/1.0.2/widgets/images/darkpanel/al.png', sizingMethod='crop'); } /* min-height fixes */ body .panel-identity .hd h2{ height: 26px; } #blq-main a.id-cta-button{ height: 22px; } #blq-main a.id-cta-button span{ height: 12px; } /* other */ div.panel-identity .c{ zoom: 1; } /* Transparent PNG replacements */ .blq-toolbar-transp #id-status .idUsername{ background-image: url(http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/img/palettes/transp/status-id-logo-noprofile.gif); } .blq-toolbar-transp #id-status .idSignin, .blq-toolbar-transp #id-status .idUsernameWithProfile{ background-image: url(http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/img/palettes/dark/status-id-logo.gif); } </style> <![endif]--> <!--[if lte IE 7]> <style type="text/css" media="screen"> .panel-identity form .text, .panel-identity form .password { zoom: 1; } .panel-identity form .text p { margin: 0; } .panel-identity form .password p { margin: 0 0 18px 0; } .panel-identity p.id-registerlink a.id-register { zoom: 1; padding-top: 3px; padding-bottom: 3px; top: 3px; } </style> <![endif]--> <!--[if lte IE 8]> <style type="text/css" media="screen"> /* Custom PNG corners for lightbox */ div.panel-identity .pc .tr { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/img/panel/ctr.png', sizingMethod='crop'); } div.panel-identity .pc .tl { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/img/panel/ctl.png', sizingMethod='crop'); } div.panel-identity .pc .bl { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/img/panel/cbl.png', sizingMethod='crop'); } div.panel-identity .pc .br { filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/img/panel/cbr.png', sizingMethod='crop'); } </style> <![endif]--> <script type="text/javascript"> if(typeof identity == 'undefined'){ identity = {}; } idProperties = { 'env': 'live', 'staticServer': 'http://', 'dynamicServer': 'http://id.bbc.co.uk', 'secureServer': 'https://id.bbc.co.uk', 'assetVersion': '3.27.2', 'assetPath': 'http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/' }; </script> <script type="text/javascript" src="http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/script/id-core.js"></script> <script type="text/javascript" src="http://static.bbci.co.uk/modules/identity/statusbar/3.27.2/script/id.js"></script> 	
+
+    
+            
+	
+	
+		
+	
+	
+	        
+        
+    
+<!-- ISTATS -->
+
+    
+
+
+
+    
+
+
+
+
+
+
+ <script type="text/javascript"> /* <![CDATA[ */ define('id-statusbar-config', { 'translation_signedout': "Sign in", 'translation_signedin': "Your account", 'use_overlay' : false, 'signin_url' : "https://ssl.bbc.co.uk/id/signin", 'locale' : "en-GB", 'policyname' : "", 'ptrt' : "http://www.bbc.co.uk/" }); /* ]]> */ </script>  <script type="text/javascript"> (function () { if (! window.require) { throw new Error('idcta: could not find require'); } var map = {}; map['idapp-1'] = 'http://static.bbci.co.uk/idapp/0.38.3/modules/idapp/idapp-1'; map['idcta/idcta-1'] = 'http://static.bbci.co.uk/id/0.16.0/modules/idcta/idcta-1'; require({paths: map}); define('id-config', {"idapp":{"version":"0.38.3","hostname":"ssl.bbc.co.uk"},"idtranslations":{"version":"dev"},"identity":{"baseUrl":"https:\/\/talkback.live.bbc.co.uk\/identity"},"pathway":{"name":null,"staticAssetUrl":"http:\/\/static.bbci.co.uk\/idapp\/0.38.3\/modules\/idapp\/idapp-1\/View.css"},"settingsurl":"https:\/\/id.bbc.co.uk\/users\/dash"}); })(); </script>                         
+    
+
+
+<link rel="schema.dcterms" href="http://purl.org/dc/terms/" />
+
+<!-- (More shared scripting at page bottom, in foot-common.sssi include) -->
+
+<!-- Glow -->
+<script type="text/javascript" src="http://www.bbc.co.uk/glow/gloader.js"></script>
+<script type="text/javascript">
+	gloader.load(["glow", "1", "glow.dom", "glow.events", "glow.net", "glow.forms", "glow.embed", "glow.widgets", "glow.anim", "glow.tweens"]);
+</script>
+
+<!-- Shared external scripts -->
+<script type="text/javascript" src="http://static.bbc.co.uk/comedy/js/common.js"></script>
+<script type="text/javascript" src="http://static.bbc.co.uk/comedy/js/navigation.js"></script>
+
+<!-- Scripting - Parental lock: -->
+<script type="text/javascript" src="http://www.bbc.co.uk/guidance/script/js/pg-gb.js?r173"></script>
+
+<!-- Live Stats Variable -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Start head-index -->
+<!-- Barlesque: -->
+
+
+
+
+
+
+
+
+
+
+<!-- Styling - Comedy shared -->
+<style type="text/css">
+	@import 'http://static.bbc.co.uk/comedy/css/d-common.css';
+</style>
+
+<!-- Styling - Comedy  shared - conditional commenting for IE: -->
+<!--[if IE 8]>
+	<link rel="stylesheet" type="text/css" href="http://static.bbc.co.uk/comedy/css/s-ie.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="http://static.bbc.co.uk/comedy/css/s-ie-8.css" media="screen" />
+<![endif]-->
+<!--[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="http://static.bbc.co.uk/comedy/css/s-ie.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="http://static.bbc.co.uk/comedy/css/s-ie-7.css" media="screen" />
+<![endif]-->
+<!--[if lte IE 6]>
+	<link rel="stylesheet" type="text/css" href="http://static.bbc.co.uk/comedy/css/s-ie-png.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="http://static.bbc.co.uk/comedy/css/s-ie.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="http://static.bbc.co.uk/comedy/css/s-ie-lte6.css" media="screen" />
+<![endif]-->
+
+<!-- Styling - Parental lock: -->
+<style type="text/css">
+	@import 'http://www.bbc.co.uk/guidance/style/pg_external.css?r173';
+</style>
+<!-- Styling - Parental lock - conditional commenting for IE: -->
+<!--[if lte IE 7]>
+	<style type="text/css">
+		@import 'http://www.bbc.co.uk/guidance/style/pg_external_ie.css';
+	</style>
+<![endif]-->
+<!--[if IE 6]>
+	<style type="text/css">
+		@import 'http://www.bbc.co.uk/guidance/style/pg_external_ie6.css';
+	</style>
+<![endif]-->
+
+<!-- Page background swap -->
+<style type="text/css">
+	.cdy #cdy-root {
+		background-image: url(/comedy/forge-assets/pal/images/page-backgrounds/12.jpg);
+		background-repeat: no-repeat;
+	}
+</style>
+
+</head>
+<body id="cdy" class="cdy section-home">
+	                <script type="text/javascript">/*<![CDATA[*/ bbcFlagpoles_istats = 'ON'; istatsTrackingUrl = '//sa.bbc.co.uk/bbc/bbc/s?name=SET-COUNTER&app_type=web&ml_name=SSI&ml_version=0.16.1&language=en-GB'; if (window.istats_countername) { istatsTrackingUrl = istatsTrackingUrl.replace(/([?&]name=)[^&]+/ig, '$1' + istats_countername); } (function() { if ( /\bIDENTITY=/.test(document.cookie) ) { istatsTrackingUrl += '&bbc_identity=1'; } var c = (document.cookie.match(/\bckns_policy=(\d\d\d)/)||[]).pop() || ''; istatsTrackingUrl += '&bbc_mc=' + (c? 'ad'+c.charAt(0)+'ps'+c.charAt(1)+'pf'+c.charAt(2) : 'not_set'); if ( /\bckns_policy=\d\d0/.test(document.cookie) ) { istatsTrackingUrl += '&ns_nc=1'; } var screenWidthAndHeight = 'unavailable'; if (window.screen && screen.width && screen.height) { screenWidthAndHeight = screen.width + 'x' + screen.height; } istatsTrackingUrl += ('&screen_resolution=' + screenWidthAndHeight); istatsTrackingUrl += '&blq_s=2.8&blq_r=2.7&blq_v=default-domestic'; })(); /*]]>*/</script>  <!-- Begin iStats 20100118 (UX-CMC 1.1009.3) --> <script type="text/javascript">/*<![CDATA[*/ (function() { window.istats || (istats = {}); var cookieDisabled = (document.cookie.indexOf('NO-SA=') != -1), hasCookieLabels = (document.cookie.indexOf('sa_labels=') != -1), hasClickThrough = /^#sa-(.*?)(?:-sa(.*))?$/.test(document.location.hash), runSitestat = !cookieDisabled && !hasCookieLabels && !hasClickThrough && !istats._linkTracked; if (runSitestat && bbcFlagpoles_istats === 'ON') { sitestat(istatsTrackingUrl); } else { window.ns_pixelUrl = istatsTrackingUrl; /* used by Flash library to track */ } function sitestat(n){var j=document,f=j.location,b="";if(j.cookie.indexOf("st_ux=")!=-1){var k=j.cookie.split(";");var e="st_ux",h=document.domain,a="/";if(typeof ns_!="undefined"&&typeof ns_.ux!="undefined"){e=ns_.ux.cName||e;h=ns_.ux.cDomain||h;a=ns_.ux.cPath||a}for(var g=0,f=k.length;g<f;g++){var m=k[g].indexOf("st_ux=");if(m!=-1){b="&"+unescape(k[g].substring(m+6))}}document.cookie=e+"=; expires="+new Date(new Date().getTime()-60).toGMTString()+"; path="+a+"; domain="+h}ns_pixelUrl=n;n=ns_pixelUrl+"&ns__t="+(new Date().getTime())+"&ns_c="+((j.characterSet)?j.characterSet:j.defaultCharset)+"&ns_ti="+escape(j.title)+b+"&ns_jspageurl="+escape(f&&f.href?f.href:j.URL)+"&ns_referrer="+escape(j.referrer);if(n.length>2000&&n.lastIndexOf("&")){n=n.substring(0,n.lastIndexOf("&")+1)+"ns_cut="+n.substring(n.lastIndexOf("&")+1,n.lastIndexOf("=")).substring(0,40)}(j.images)?new Image().src=n:j.write('<p><i'+'mg src="'+n+'" height="1" width="1" alt="" /></p>')}; })(); /*]]>*/</script> <noscript><p style="position: absolute; top: -999em;"><img src="//sa.bbc.co.uk/bbc/bbc/s?name=SET-COUNTER&amp;app_type=web&amp;ml_name=SSI&amp;ml_version=0.16.1&amp;language=en-GB&amp;blq_s=2.8&amp;blq_r=2.7&amp;blq_v=default-domestic" height="1" width="1" alt="" /></p></noscript> <!-- End iStats (UX-CMC) -->    <div id="blq-container" class="blq-lang-en-GB blq-gvl-2-8 blq-id-identitystatusbar"> <div id="blq-pre-mast" lang="en-GB"> <!-- Pre mast -->  </div>  <script type="text/html" id="blq-bbccookies-tmpl"><![CDATA[ <div id="bbccookies-prompt"> <h2> Cookies on the BBC website </h2> <p> We use cookies to ensure that we give you the best experience on our website. If you continue without changing your settings, we'll assume that you are happy to receive all cookies on the BBC website. However, if you would like to, you can <a href="/privacy/cookies/managing/cookie-settings.html">change your cookie settings</a> at any time. </p> <ul> <li id="bbccookies-continue"> <button type="button" id="bbccookies-continue-button">Continue</button> </li> <li id="bbccookies-more"><a href="/privacy/cookies/bbc">Find out more</a></li></ul> </div> ]]></script> <script type="text/javascript">/*<![CDATA[*/ (function(){if(bbccookies._showPrompt()){var i=document,b=i.getElementById("blq-pre-mast"),f=i.getElementById("blq-global"),h=i.getElementById("blq-container"),c=i.getElementById("blq-bbccookies-tmpl"),a,g,e;if(b&&i.createElement){a=i.createElement("div");a.id="bbccookies";e=c.innerHTML;e=e.replace("<"+"![CDATA[","").replace("]]"+">","");a.innerHTML=e;if(f){f.insertBefore(a,b)}else{h.insertBefore(a,b)}g=i.getElementById("bbccookies-continue-button");g.onclick=function(){a.parentNode.removeChild(a);return false};bbccookies._setPolicy()}}})(); /*]]>*/</script>  <span id="blq-mast-background"></span> <div id="blq-container-inner" lang="en-GB">  <div id="blq-acc" class="blq-rst">  <p id="blq-mast-home" class="blq-no-images"><a href="/" hreflang="en-GB"> <span id="blq-blocks-wrapper"> <span class="blq-home">British Broadcasting Corporation</span><img src="http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/img/blocks.png" alt="BBC" id="blq-blocks" width="84" height="24" /><span class="blq-span">Home</span> </span> </a></p>  <p class="blq-hide"><strong><a id="page-top">Accessibility links</a></strong></p> <ul id="blq-acc-links">   <li><a href="#blq-content">Skip to content</a></li>  <li><a href="#blq-local-nav">Skip to local navigation</a></li>  <li><a href="#blq-nav-main">Skip to bbc.co.uk navigation</a></li> <li><a href="#blq-search">Skip to bbc.co.uk search</a></li>   <li id="blq-acc-help" class="blq-hide"> <a href="/help/">Help</a> </li>   <li><a href="/accessibility/">Accessibility Help</a></li>   </ul>  </div>   <div id="blq-mothball" class="blq-mothball-red"> <a href="/help/web/mothballing/"> This page hasn't been updated for a while. <span id="blq-mothball-sub">We've left it here for reference <span>More information</span> </span> </a> </div>  <div id="blq-main" class="blq-clearfix">        
+
+	
+		<!-- START COMEDY CONTENT -->
+		<div id="cdy-root" class="cdy-root">
+		
+			<!-- Comedy masthead/banner: -->
+			<!-- Comedy masthead/banner graphic: -->
+<div id="cdy-masthead" title="Comedy">
+	<a id="masthead-link" href="/comedy/" title="Comedy"><span id="masthead-banner"><img id="title-graphic" src="http://static.bbc.co.uk/comedy/img/masthead/masthead-title-graphic-comedy-homepage.png" width="194" height="48" alt="Comedy" title="link to Comedy home page" /></span></a>
+</div>
+
+			
+			<!-- Comedy masthead/banner: -->
+			<!-- Main nav: -->
+<div id="blq-local-nav">
+	<div class="cdy-nav-main">		
+		<ul>
+			<li><a href="/comedy/" title="Comedy homepage"><img src="http://static.bbc.co.uk/comedy/img/navigation/nav-main-1-selected.png" class="selected" alt="Comedy homepage" /></a></li>
+			<li><a href="/comedy/clips/" title="Comedy clips"><img src="http://static.bbc.co.uk/comedy/img/navigation/nav-main-2.png" alt="Comedy clips" /></a></li>
+			<li><a href="/comedy/collections/" title="Comedy collections"><img src="http://static.bbc.co.uk/comedy/img/navigation/nav-main-3.png" alt="Comedy collections" /></a></li>
+			<li><a href="/blogs/comedy/" title="Comedy blog"><img src="http://static.bbc.co.uk/comedy/img/navigation/nav-main-4.png" alt="Comedy blog" /></a></li>
+			<li><a href="/comedy/browse" title="Browse comedy clips by show"><img src="http://static.bbc.co.uk/comedy/img/navigation/nav-main-5.png" alt="Browse comedy clips by show" /></a></li>
+		</ul>
+	</div>
+</div>
+			
+			<div id="cdy-nav-crumb"></div>
+			
+			<div id="blq-content">
+			
+			<h1>404 - Page not found</h1>
+	
+			<!-- START MAIN (=FEATURED) CONTENT AREA -->
+			<div class="cdy-featured">
+
+				<!-- Content for main (LH) page area goes here... -->
+					<!-- New mod-pmo -->
+					<div class="mod-pmo">
+					
+						<h2>404 - Page not found</h2>
+						
+						<!-- New pmo -->
+						<div class="pmo">
+							
+							
+							
+							<p>Unfortunately the following page was not available:</p>
+							
+							<p><strong>/comedy/wavworld/email/swanee.wav</strong></p>
+							
+							
+	
+							<p>You may have typed the web address incorrectly. Please check the address and spelling to ensure that it does not contain capital letters or spaces.</p>
+							
+						    <p>It is possible that the page you were looking for may have been moved, updated or deleted.</p>
+	
+							<h3>You may wish to:</h3>
+							<ul>
+								
+								<li>Return to the <a href="/comedy/">Comedy home page</a></li>
+							   	<li>If you are still encountering problems, please <a href="/help">try the help section</a></li>
+							</ul> 
+							
+						</div>
+									
+					</div>
+					<!-- End mod-pmo -->
+		
+			</div>
+			<!-- END MAIN (=FEATURED) CONTENT AREA -->
+	
+			<!-- START SUPPLEMENTARY (=RH) CONTENT AREA -->
+			<div class="cdy-extra">
+				
+				<!-- New mod-pmo [a new stack include]: -->
+				<!-- New promo module: -->
+<div class="mod-pmo mod-pmo-blog">
+	<div class="blog-header">
+	<h2><a href="/blogs/comedy/">Comedy Blog</a></h2>
+	</div>
+	<ul>
+			<li class="pmo">
+			<span class="blog-post-date">Posted: 09:53 on 28.08.12</span>
+			<h3><a href="http://www.bbc.co.uk/blogs/comedy/2012/08/radio-4s-beauty-olonga.shtml"><span class="blog-post">Radio 4's Beauty Olonga </span></a></h3>
+		</li>
+			<li class="pmo">
+			<span class="blog-post-date">Posted: 13:48 on 23.08.12</span>
+			<h3><a href="http://www.bbc.co.uk/blogs/comedy/2012/08/up-in-edinburgh-the-bbcs.shtml"><span class="blog-post">Comedy and Multiplatform</span></a></h3>
+		</li>
+			<li class="pmo">
+			<span class="blog-post-date">Posted: 07:00 on 09.08.12</span>
+			<h3><a href="http://www.bbc.co.uk/blogs/comedy/2012/08/new-jason-byrne-sitcom-father.shtml"><span class="blog-post">New Jason Byrne Sitcom 'Father Figure'</span></a></h3>
+		</li>
+			<li class="pmo">
+			<span class="blog-post-date">Posted: 07:00 on 12.07.12</span>
+			<h3><a href="http://www.bbc.co.uk/blogs/comedy/2012/07/the-thick-of-it-returns.shtml"><span class="blog-post">The Thick of It Returns</span></a></h3>
+		</li>
+		
+	</ul>
+</div>
+			
+			</div>
+			<!-- END SUPPLEMENTARY (=RHN) CONTENT AREA -->	
+			
+			
+			<!-- START LOWER CONTENT AREA -->
+			
+			<!-- New mod-pmo - social bookmarking bar - A PAL app include: -->
+				<!-- New module - Social bookmarking bar -->
+<div class="mod-pmo mod-pmo-socialbookmarking">
+	<div class="pmo">
+		<div id="static-bookmark" class="blq-rst blq-clearfix">
+			<ul>
+				<li class="socbook static-rss">
+					<a href="http://www.bbc.co.uk/comedy/clips/latest.rss"><img src="http://static.bbc.co.uk/comedy/img/social-bookmarks/icon-rss.gif" alt="BBC Comedy RSS feed" /></a>
+					<div class="socbook-text">
+						<a class="socbooklink" href="http://www.bbc.co.uk/comedy/clips/latest.rss" title="get the BBC Comedy RSS feed">RSS</a>
+					</div>
+				</li>
+				<li class="socbook static-facebook">
+					<a href="http://www.facebook.com/bbccomedy"><img src="http://static.bbc.co.uk/comedy/img/social-bookmarks/icon-facebook.gif" alt="BBC Comedy on Facebook" /></a>
+					<div class="socbook-text">
+						<a class="socbooklink" href="http://www.facebook.com/bbccomedy" title="Join us on Facebook">Join us on Facebook</a>
+					</div>
+				</li>
+				<li class="socbook static-twitter">
+					<a href="http://www.twitter.com/bbccomedy/"><img src="http://static.bbc.co.uk/comedy/img/social-bookmarks/icon-twitter.gif" alt="BBC Comedy on Twitter" /></a>
+					<div class="socbook-text">
+						<a class="socbooklink" href="http://www.twitter.com/bbccomedy/" title="Follow us on Twitter">Follow us on Twitter</a>
+					</div>
+				</li>
+				<li class="socbook static-bbc-comedy-channel">
+					<a href="http://www.youtube.com/user/bbccomedy"><img src="http://static.bbc.co.uk/comedy/img/social-bookmarks/icon-bbc-comedy-channel.gif" alt="BBC Comedy Channel on YouTube" /></a>
+					<div class="socbook-text">
+						<a class="socbooklink" href="http://www.youtube.com/user/bbccomedy" title="See BBC Comedy clips on our YouTube channel">BBC Comedy Channel</a>
+					</div>
+				</li>
+			</ul>
+	
+		</div>
+	</div>
+</div>
+			
+			<!-- 'Explore the bbc' [A new stack include]: -->
+			<!-- START MORE CONTENT AREA (Full width) -->
+<div class="cdy-ancillary-full promo-explore-bbc-comedy">	
+	<!-- New p-mod: -->
+	<div class="mod-pmo">
+		<h2>Explore BBC Comedy</h2>
+		<div class="pmo"><h3>Comedy Highlights</h3><ul><li><a href="/comedy/show/p00bnzq6/spout/">Spout</a></li><li><a href="/comedy/show/b00vjjqh/special_1_tv/">Special 1 TV</a></li><li><a href="/comedy/show/p00bc6kq/steve_coogans_101_really_bad_ideas/">Steve Coogan's 101 Really Bad Ideas</a></li><li><a href="/psychoville/">Psychoville</a></li><li><a href="/comedy/show/p002qt1v/david_firth/">David Firth and Drillbithead</a></li><li><a href="/comedy/show/p007b7j6/mr_khan/">Mr Khan</a></li><li><a href="/comedy/show/p00crlx7/three_scientists/">Three Scientists</a></li><li><a href="/comedy/show/p006zgmx/angelos_epithemiou/">Angelos Epithemiou</a></li></ul></div><div class="pmo"><h3>Don't Miss</h3><ul><li><a href="/programmes/b00trc9v">Come Fly With Me</a></li><li><a href="/programmes/b00x7fjr">Episodes</a></li><li><a href="/programmes/b00pzdq9">Coming of Age</a></li><li><a href="/programmes/b006mw70">Not Going Out</a></li><li><a href="/programmes/b00x17n9">Mrs Brown's Boys</a></li><li><a href="/programmes/b00y6mz2">How TV Ruined Your Life</a></li><li><a href="/programmes/b00xk5nt">Fast and Loose</a></li><li><a href="/programmes/b00y8zxx">Lunch Monkeys</a></li></ul></div><div class="pmo"><h3>Radio & Podcasts</h3><ul><li><a href="/podcasts/series/comedy">Radio 4 Comedy of the Week</a></li><li><a href="/radio2/comedy/">Radio 2 Comedy</a></li><li><a href="/radio4/programmes/genres/comedy">Radio 4 Comedy</a></li><li><a href="/radio7/programmes/genres/comedy">Radio 7 Comedy</a></li><li><a href="/podcasts/series/sfb/">Radio Scotland Comedy</a></li><li><a href="/podcasts/series/adamandjoe/">Adam and Joe podcast</a></li><li><a href="/podcasts/genre/comedy/">More comedy podcasts</a></li></ul></div><div class="pmo"><h3>Around bbc.co.uk</h3><ul><li><a href="/comedy/tickets">Free Tickets to Comedy Shows</a></li><li><a href="/blogs/special1/">Special 1 TV Blog</a></li><li><a href="/bbcthree/programmes/genres/comedy">Comedy on BBC3</a></li><li><a href="/newsbeat/hi/newsbeat/newsid_7875000/7875393.stm">Newsbeat's Oddbox</a></li></ul></div><div class="pmo"><h3>Sites we like</h3><ul><li><a href="http://www.chortle.co.uk">Chortle</a></li><li><a href="http://www.comedy.org.uk/">British Comedy Guide</a></li><li><a href="http://www.adultswim.co.uk/">Adult Swim</a></li><li><a href="http://dave.uktv.co.uk/">Dave</a></li><li><a href="http://uk.myspace.com/comedyuk">My Space Comedy</a></li><li><a href="http://www.funnyordie.co.uk/">Funny Or Die UK</a></li><li><a href="http://www.viralblog.com/viral-friday/">Friday Viral Chart</a></li><li><a href="http://www.popcorncomedy.com/">Popcorn comedy</a></li></ul></div>											
+	</div>
+	<!-- End mod-pmo -->
+</div>
+<!-- END MORE CONTENT AREA (Full width) -->
+	
+			
+			<!-- END LOWER CONTENT AREA -->		
+				
+			</div> <!-- END blq-content -->
+			
+		</div>
+		<!-- END COMEDY CONTENT -->
+
+	<!-- Monitoring: -->
+<!-- LiveStats -->
+<div class="blq-hide"><img id="livestats" width="1" height="1" alt="" src="http://stats.bbc.co.uk/o.gif?~RS~s~RS~Vision~RS~t~RS~HighWeb_Home~RS~i~RS~0~RS~p~RS~entertainmentandcomedy~RS~a~RS~Directories~RS~u~RS~/comedy/404.shtml~RS~r~RS~(none)~RS~q~RS~~RS~z~RS~50~RS~" /></div>
+
+<!-- LiveStats heatmap -->
+<script src="/cs/vision/stats/livestats.js" type="text/javascript"></script>
+
+
+
+	
+	               </div>   <div id="blq-mast" class="blq-rst blq-default-domestic blq-new-nav" lang="en-GB"> <div id="blq-sign-in">   <div id="id-status" class="blq-id-v4"> <div class="id-out id-gel"> <h2 class="blq-hide">BBC iD</h2> <a href="https://ssl.bbc.co.uk/id/status" id="blq-idstatus-link"> <span class="id-icon"> <span></span> </span> <span id="blq-idstatus-text"> BBC iD </span> <span class="id-spinner"></span> <span class="blq-dropdown-arrow"> <span></span> </span> </a> </div> <div id="id-status-nav" > <div class="id-in blq-rst"> <ul> <li> <a name="idDash" class="blq-nogo has-ptrt idDash" href="https://id.bbc.co.uk/users/dash?ptrt=http://www.bbc.co.uk/"> Settings </a> </li> <li> <a name="idSignout" class="blq-nogo has-ptrt idSignout" href="https://ssl.bbc.co.uk/id/signout"> Sign out </a> </li> </ul> </div> </div> </div>          </div>  <form method="get" id="blq-search-form" action="http://search.bbc.co.uk/search" accept-charset="utf-8"> <p id="blq-nav-search">  <input type="hidden" name="go" value="toolbar" />   <input type="hidden" name="uri" value="/comedy/wavworld/email/swanee.wav" />    <label for="blq-search" class="blq-hide">Search term:</label> <input id="blq-search" type="text" name="q" value="" maxlength="128" /> <input id="blq-search-btn" type="submit" value="Search" /> </p> </form>   <h2 class="blq-hide">bbc.co.uk navigation</h2> <ul id="blq-nav-main" class="blq-not-uk">      <li id="blq-nav-n"><a href="http://www.bbc.co.uk/news/" hreflang="en-GB">News</a></li>  <li id="blq-nav-s"><a href="http://www.bbc.co.uk/sport/" hreflang="en-GB">Sport</a></li> <li id="blq-nav-w"><a href="http://www.bbc.co.uk/weather/" hreflang="en-GB">Weather</a></li>  <li id="blq-nav-i">  <a href="/iplayer/" hreflang="en-GB">iPlayer</a>  </li>  <li id="blq-nav-t"><a href="/tv/" hreflang="en-GB">TV</a></li>  <li id="blq-nav-r"><a href="/radio/" hreflang="en-GB">Radio</a></li> <li id="blq-nav-m"><a href="#blq-nav">More&hellip;</a></li>  </ul> </div>  <div id="blq-nav" class="blq-blue"> <div id="blq-nav-links" class="blq-clearfix" lang="en-GB"> <div id="blq-nav-links-inner">  <ul class="blq-nav-sub blq-first"> <li><a href="/cbbc/">CBBC</a></li> <li><a href="/cbeebies/">CBeebies</a></li> <li><a href="/comedy/">Comedy</a></li> <li><a href="/food/">Food</a></li> <li><a href="/health/">Health</a></li> </ul> <ul class="blq-nav-sub"> <li><a href="/history/">History</a></li> <li><a href="/learning/">Learning</a></li> <li><a href="/music/">Music</a></li> <li><a href="/science/">Science</a></li> <li><a href="/nature/">Nature</a></li> </ul> <ul class="blq-nav-sub blq-last"> <li><a href="/local/">Local</a></li> <li><a href="/northernireland/">Northern Ireland</a></li> <li><a href="/scotland/">Scotland</a></li> <li><a href="/wales/">Wales</a></li> <li id="blq-az"><a href="/a-z/">Full A-Z<span class="blq-hide"> of BBC sites</span></a></li> </ul>  </div> </div> </div>  <!--[if IE 6]> <div id="blq-ie6-upgrade"> <p> <span>You're using the Internet Explorer 6 browser to view the BBC website. Our site will work much better if you change to a more modern browser. It's free, quick and easy.</span> <a href="http://www.browserchoice.eu/">Find out more <span>about upgrading your browser</span> here&hellip;</a> </p> </div> <![endif]-->  <div id="blq-foot" lang="en-GB" class="blq-rst blq-clearfix blq-foot-grey">  <div id="blq-footlinks"> <h2 class="blq-hide">BBC links</h2> <ul> <li class="blq-footlinks-row"> <ul class="blq-footlinks-row-list">  <li><a href="http://m.bbc.co.uk/">Mobile site</a></li>      <li><a href="/terms/">Terms of Use</a></li>       <li><a href="/aboutthebbc/">About the BBC</a></li>  </ul> </li> <li class="blq-footlinks-row"> <ul class="blq-footlinks-row-list">       <li><a href="/privacy/">Privacy</a></li>       <li><a href="/help/">BBC Help</a></li>  </ul> </li> <li class="blq-footlinks-row"> <ul class="blq-footlinks-row-list">       <li><a href="/privacy/bbc-cookies-policy.shtml">Cookies</a></li>       <li><a href="/accessibility/">Accessibility Help</a></li>  </ul> </li> <li class="blq-footlinks-row"> <ul class="blq-footlinks-row-list">      <li><a href="/guidance/">Parental Guidance</a></li>        <li><a href="/feedback/">Contact Us</a></li>   </ul> </li>  </ul> </div>   <div id="blq-foot-blocks" class="blq-footer-image-light"><img src="http://static.bbci.co.uk/frameworks/barlesque/2.30.4/desktop/2.8/img/blocks/light.png" width="84" height="24" alt="BBC" /></div> <p id="blq-disclaim"><span id="blq-copy">BBC &copy; 2013</span> <a href="/help/web/links/">The BBC is not responsible for the content of external sites. Read more.</a></p> <div id="blq-obit"><p><strong>This page is best viewed in an up-to-date web browser with style sheets (CSS) enabled. While you will be able to view the content of this page in your current browser, you will not be able to get the full visual experience. Please consider upgrading your browser software or enabling style sheets (CSS) if you are able to do so.</strong></p></div> </div> </div>  </div>  <script type="text/javascript"> if (typeof require !== 'undefined') { require(['istats-1'], function(istats){ istats.track('external', { region: document.getElementById('blq-main') }); istats.track('download', { region: document.getElementById('blq-main') }); }); } </script>                  
+
+</body>
+</html>

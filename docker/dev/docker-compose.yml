@@ -1,0 +1,46 @@
+version: "3.4"
+services:
+  SPA:
+    image: "nginx:latest"
+    volumes:
+      - "../../SPA:/usr/share/nginx/html"
+      - "../config/nginxconfig:/etc/nginx/conf.d/"
+    restart: always
+    ports:
+      - 80:80
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=visor777
+    volumes:
+      # - '../../mysql_storage:/var/lib/mysql'
+      - "../dbschemas:/docker-entrypoint-initdb.d/"
+    ports:
+      - "3306:3306"
+  appservice:
+    build: ./
+    hostname: appservice
+    ports:
+      - "30200:30200"
+    command:
+      - node
+      - server
+      - ./docker/config/appservice.js
+    depends_on:
+      - SPA
+      - redis
+      - mysql
+    volumes:
+      - "../../:/home"
+  redis:
+    image: redis
+    hostname: redis
+  exec:
+    build: ./
+    volumes:
+      - "../../:/home"
+
+    command: ["bash", "-c", "${FILE}"]
+    depends_on:
+      - redis
+      - mysql

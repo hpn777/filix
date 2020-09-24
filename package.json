@@ -1,0 +1,23 @@
+{
+	"name": "filix",
+	"version": "2.0.0",
+	"description": "General purpose application server.",
+	"main": "server.js",
+	"dependencies": {
+		"activedirectory": "0.5.1",
+		"linq": "3.0.5",
+		"mysql": "^2.18.1",
+		"orm": "5.0.5",
+		"rx": "4.1.0",
+		"tail": "0.4.0",
+		"tessio": "git+https://github.com/hpn777/tesseract.git",
+		"ws": "7.2.5"
+	},
+	"scripts": {
+		"spa": "cd docker/dev & docker-compose up SPA",
+		"all": "cd docker/dev & docker-compose up appservice",
+		"stop": "cd docker/dev & docker-compose stop"
+	},
+	"author": "Rafal Okninski",
+	"license": "MIT"
+}

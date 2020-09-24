@@ -1,0 +1,297 @@
+
+#poweredby {
+    bottom: 40px;
+    opacity: 0.7;
+    position: absolute;
+    right: 20px;
+    z-index: 15000;
+}
+#poweredby div {
+    background-image: url("../images/powered-by-ext-js.png");
+    background-repeat: no-repeat;
+    height: 25px;
+    position: relative;
+    width: 150px;
+}
+.x-ie6 #poweredby div, .x-ie7 #poweredby div, .x-ie8 #poweredby div {
+    background-image: none;
+}
+.ux-start-button-icon {
+    background-color: transparent;
+}
+.ux-start-button .x-btn-arrow {
+    background-image: none;
+}
+.ux-start-button .x-btn-arrow-right {
+    padding-left: 10px;
+}
+.ux-taskbar {
+    padding-left: 4px !important;
+}
+.ux-desktop-black .ux-start-button {
+    display: block;
+    height: 28px;
+    padding: 0;
+}
+.ux-desktop-black .ux-start-button em {
+    margin-top: 5px;
+}
+.ux-desktop-black .ux-start-button .x-btn-inner {
+    color: black;
+    font-size: 11px;
+    font-weight: bold;
+}
+.ux-desktop-black .ux-start-button {
+    background-image: -moz-linear-gradient(center top , #E4F3FF, #D9EDFF 48%, #C2D8F2 52%, #C6DCF6);
+    border-color: #81A4D0;
+    border-radius: 8px 8px 8px 8px;
+}
+.ux-start-menu-toolbar .x-btn-inner {
+    text-align: left;
+}
+.ux-start-menu-toolbar {
+    padding: 4px !important;
+}
+.ux-taskbar .x-toolbar {
+    background: none repeat scroll 0 0 transparent;
+    border-color: transparent;
+}
+.x-ie6 .ux-taskbar .x-toolbar {
+    border-color: #D3E1F1;
+}
+.ux-desktop-windowbar .x-btn-inner, .x-nbr .ux-desktop-windowbar .x-btn-icon-text-left button {
+    text-align: left !important;
+}
+.ux-taskbar .x-toolbar {
+    height: 28px;
+}
+.ux-taskbar {
+    height: 28px;
+    padding: 0;
+}
+.x-toolbar .x-toolbar {
+    padding: 0;
+}
+.ux-desktop-black .ux-taskbar {
+    background: url("../images/taskbar/black/taskbar-start-panel-bg.gif") repeat-x scroll left top transparent;
+    border-color: transparent;
+}
+.ux-desktop-black .ux-taskbar .x-splitter {
+    background: url("../images/taskbar/black/taskbar-split-h.gif") no-repeat scroll 0 -2px transparent;
+}
+.ux-desktop-black .ux-taskbar .x-toolbar-text {
+    color: white !important;
+}
+.ux-desktop-black .ux-taskbar .x-btn-default-toolbar-small-over {
+    background-color: yellow;
+}
+.ux-desktop-black .ux-taskbar .x-btn-inner {
+    color: white;
+}
+.ux-desktop-black .ux-taskbar .x-btn-pressed .x-btn-inner, .ux-taskbar .x-btn-over .x-btn-inner {
+    color: black;
+}
+.ux-desktop-trayclock {
+    padding-bottom: 0;
+    padding-top: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+.ux-wallpaper {
+    background-color: #3D71B8;
+}
+.ux-wallpaper-tiled {
+    background-repeat: repeat;
+}
+.ux-desktop-shortcut {
+    cursor: pointer;
+    margin: 8px;
+    padding: 8px;
+    text-align: center;
+    width: 64px;
+}
+.ux-desktop-shortcut-icon {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    height: 48px;
+    width: 48px;
+}
+.ux-desktop-shortcut-text {
+    color: white;
+    font: 10px tahoma,arial,verdana,sans-serif;
+    padding-top: 5px;
+    text-decoration: none;
+}
+.x-view-over .ux-desktop-shortcut-text {
+    text-decoration: underline;
+}
+.accordion-shortcut {
+    background-image: url("../images/im48x48.png");
+}
+.cpu-shortcut {
+    background-image: url("../images/statusLarge.png");
+}
+.grid-shortcut {
+    background-image: url("../images/grid48x48.png");
+}
+.notepad-shortcut {
+    background-image: url("../images/notepadLarge.png");
+    height: 46px;
+    width: 46px;
+}
+.x-ie6 .accordion-shortcut {
+    background-image: none;
+}
+.x-ie6 .cpu-shortcut {
+    background-image: none;
+}
+.x-ie6 .grid-shortcut {
+    background-image: none;
+}
+.x-ie6 .notepad-shortcut {
+    background-image: none;
+}
+.video {
+    background-image: url("../images/gears.gif");
+}
+.bogus {
+    background-image: url("../images/bogus.png") !important;
+}
+.notepad {
+    background-image: url("../images/bogus.png") !important;
+}
+.logout {
+    background-image: url("../images/logout.gif") !important;
+}
+.settings {
+    background-image: url("../images/gears.gif") !important;
+}
+.icon-grid {
+    background-image: url("../images/grid.png") !important;
+}
+.add {
+    background-image: url("../../shared/icons/fam/add.gif") !important;
+}
+.option {
+    background-image: url("../../shared/icons/fam/plugin.gif") !important;
+}
+.remove {
+    background-image: url("../../shared/icons/fam/delete.gif") !important;
+}
+.save {
+    background-image: url("../../shared/icons/save.gif") !important;
+}
+.accordion {
+    background-image: url("../images/accordian.gif") !important;
+}
+.tabs {
+    background-image: url("../images/tabs.gif") !important;
+}
+.user {
+    background-image: url("../images/icons/user.gif") !important;
+}
+.user-add {
+    background-image: url("../../shared/icons/fam/user_add.gif") !important;
+}
+.user-delete {
+    background-image: url("../../shared/icons/fam/user_delete.gif") !important;
+}
+.connect {
+    background-image: url("../../shared/icons/fam/connect.gif") !important;
+}
+.user-girl {
+    background-image: url("../../shared/icons/fam/user_female.gif") !important;
+}
+.user-kid {
+    background-image: url("../../shared/icons/fam/user_green.gif") !important;
+}
+.user-suit {
+    background-image: url("../../shared/icons/fam/user_suit.gif") !important;
+}
+
+
+.stopped-server-heartbeat {
+    color:white !important;
+    font-weight:bold;
+    background-color:red;
+    border: 1px solid white;
+    padding:2px;
+}
+
+
+.slow-server-heartbeat {
+    color:white !important;
+    font-weight:bold;
+    background-color:orange;
+    border: 1px solid white;
+    padding:2px;
+}
+
+.match, .m1, .m2, .m3, .m4 {
+    color:white;
+    font-weight: bold;
+    background-color: #6366ff;
+    padding: 1px 3px;
+}
+
+.m1 {
+    background-color: #ffb3ed;
+}
+
+.m2 {
+    background-color: #97c79a;
+}
+
+.m3 {
+    background-color: #d5eeff;
+}
+
+.m4 {
+    background-color: #fbff59;
+    color:black;
+}
+
+.canceler-side-buy {
+    color:blue;
+}
+.canceler-side-sell {
+    color:red;
+}
+
+.order-type-MARKET {background-color: #d8ff8b;}
+.order-type-PEG_PRIMARY {background-color: #affff7;}
+.order-type-PEG_MID {background-color: #e8bdff;}
+.order-type-PEG_MARKET {background-color: #ffd3ee;}
+.order-type-LIMIT {background-color: #ffbd75;}
+
+
+.ops-field-mod .x-grid-dirty-cell {
+    background-color: #faff0e !important;
+    background-image: none;
+    /*background-image: url(/static/lib/silk/bullet_red.png);*/
+    /*background-position: right center;*/
+    /*color: #090;*/
+}
+
+.order-cancel-selected {
+    background-color:silver;
+}
+
+.iframemodule-tear {
+    background-image: url(../images/icons/arrow_out.png)
+}
+
+
+.client-location-text {
+    border:none;
+    background:transparent;
+    /*padding:0px;*/
+    /*margin:0px;*/
+    color:inherit;
+    font:inherit;
+    vertical-align:inherit;
+    height:13px;
+}
+
+
+

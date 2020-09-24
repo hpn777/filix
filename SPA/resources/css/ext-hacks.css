@@ -1,0 +1,176 @@
+﻿/*.x-header-horizontal{
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -ms-border-top-left-radius: 5px;
+    -ms-border-top-right-radius: 5px;
+}*/
+.center {
+   width: 300px;
+   height: 300px;
+   position: absolute;
+   left: 50%;
+   top: 50%; 
+   margin-left: -150px;
+   margin-top: -150px;
+}
+
+/*This is event types icons*/
+.iconBase {
+    width: 16px;
+    height: 16px;
+    float: left;
+}
+
+.locked-icon{
+    width:16px;
+    background-image:url('/resources/ext-theme-neptune/images/grid/hmenu-lock.png')  !important;
+}
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+}
+
+.delete-icon {
+    background-image: url(/resources/ext-theme-neptune/images/dd/drop-no.png);
+}
+
+.x-btn-default-small {
+}
+
+/*  ExtJS override */
+.x-boundlist ul{
+    list-style: none;
+    margin: 0px;
+    padding: 3px;
+}
+.x-mask { z-index: 1 !important; }
+
+.gridViewTicker{
+    cursor:pointer;
+    color: #0088ff;
+}
+
+.gridViewPriceUp{
+    color: #0f0;
+}
+.gridViewPriceDown{
+    color: #f00;
+}
+.gridViewPriceStay{
+    color: #fff;
+}
+
+.gridViewBrockerLocal{
+    color: #F4A460;
+}
+
+.gridViewDownloadFile{
+    color: #A4A460;
+}
+
+.gridViewShortDate{
+    color: #99CCFF;
+}
+
+.forceVerticalScrolling{
+    overflow-y: auto !important ; 
+    overflow-x: hidden;
+}
+.ext-control-tabfix{
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -webkit-box-sizing: border-box; 
+}
+
+.x-panel-with-col-lines .x-grid-row .x-grid-cell {
+    border-right-style:  none !important;
+}
+
+/*.x-grid-row .x-grid-cell {
+    border-style:  none !important
+}*/
+.tikIdentityRestricted
+{
+	POSITION:relative;
+	COLOR: #fc0a0a;
+	FONT-SIZE: 8pt;
+	FONT-WEIGHT: bold;
+}
+
+.tikIdentityPosition
+{ 
+	POSITION:relative;
+	COLOR: #00FFFF;
+	FONT-SIZE: 8pt;
+	FONT-WEIGHT: bold;
+}
+
+.tikIdentity
+{ 
+	/* URL for company tickers and names that link to the stock page */
+	POSITION:relative;
+	COLOR: #FCC000;
+	FONT-SIZE: 8pt;
+	FONT-WEIGHT: bold;
+
+}
+/* ------------- */
+
+/* PosEx row override*/
+
+.posexMainRow .x-grid-cell{
+    background-color: #505099 !important;
+	color: #ddd; 
+}
+
+.posexRow1 .x-grid-cell{
+    background-color: #444 !important;
+	color: #ddd; 
+}
+.posexRow2 .x-grid-cell{
+    background-color: #555 !important;
+	color: #ddd; 
+}
+.posexRow3 .x-grid-cell{
+    background-color: #666 !important;
+	color: #ddd; 
+}
+.posexRow4 .x-grid-cell{
+    background-color: #777 !important;
+	color: #ddd; 
+}
+.posexRow5 .x-grid-cell{
+    background-color: #888 !important;
+	color: #ddd; 
+}
+.posexRow6 .x-grid-cell{
+    background-color: #999 !important;
+	color: #000; 
+}
+.posexRow7 .x-grid-cell{
+    background-color: #aaa !important;
+	color: #222; 
+}
+.posexRow8 .x-grid-cell{
+    background-color: #bbb !important;
+	color: #333; 
+}
+.posexRow9 .x-grid-cell{
+    background-color: #ccc !important;
+	color: #333; 
+}
+.posexRow10 .x-grid-cell{
+    background-color: #ddd !important;
+	color: #333; 
+}
+
+/*------------*/
+
