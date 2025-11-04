@@ -1,0 +1,5 @@
+FROM nginx:1.27.0 as base
+
+FROM base as prod
+COPY ./frontend/dist /usr/share/nginx/html
+COPY ./devops/nginxconfig /etc/nginx/conf.d

@@ -1,0 +1,285 @@
+# Improved Docker Compose Configuration
+# Based on version 3.7 spec but removing deprecated 'version' field
+
+x-common:
+  &common
+  init: true
+  networks:
+    - filix_net
+
+x-logging:
+  &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
+    labels: "service,environment"
+
+x-healthcheck:
+  &default-healthcheck
+  interval: 10s
+  timeout: 5s
+  retries: 3
+  start_period: 30s
+
+services:
+  spa-builder:
+    image: node:22-alpine
+    working_dir: /app
+    volumes:
+      - "../..:/app"
+    command: sh -c "apk add --no-cache git && cd frontend && npm ci && npm run style:ci && npm run build && rm -rf node_modules"
+    profiles:
+      - spa-builder
+    logging: *default-logging
+
+  spa:
+    <<: *common
+    container_name: filix-spa
+    build:
+      context: ../..
+      dockerfile: devops/docker/Dockerfile.spa
+      target: base
+    volumes:
+      - "../../frontend:/usr/share/nginx/html:ro"
+      - "../nginxconfig:/etc/nginx/conf.d/:ro"
+    restart: unless-stopped
+    ports:
+      - "${SPA_PORT:-8080}:80"
+    profiles:
+      - ui
+    healthcheck:
+      <<: *default-healthcheck
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      start_period: 10s
+    logging: *default-logging
+    labels:
+      - "com.filix.service=spa"
+      - "com.filix.environment=${ENVIRONMENT:-development}"
+
+  postgresdb:
+    <<: *common
+    container_name: filix-postgres
+    image: postgres:15.4-bullseye
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - ../../db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - db_data_postgres:/var/lib/postgresql/data:rw
+      - postgres_backups:/backups:rw
+    environment:
+      - POSTGRES_DB=appData
+      - POSTGRES_USER=sysdba
+      - POSTGRES_PASSWORD=sysdba
+      - PGPASSWORD=sysdba
+      # Performance tuning
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d appData -U sysdba"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    cap_add:
+      - SYS_NICE
+    profiles:
+      - db
+      - ui
+    logging: *default-logging
+    labels:
+      - "com.filix.service=database"
+      - "com.filix.environment=${ENVIRONMENT:-development}"
+
+  appservice:
+    <<: *common
+    container_name: filix-appservice
+    image: node:24-alpine
+    working_dir: /app
+    hostname: appservice
+    ports:
+      - "${APPSERVICE_PORT:-30200}:30200"
+    command: ["node", '-r', 'source-map-support/register', "./dist/server"]
+    depends_on:
+      postgresdb:
+        condition: service_healthy
+      appdata_migration:
+        condition: service_completed_successfully
+    volumes:
+      - "../../backend/:/app"
+    profiles:
+      - ui
+    ipc: "host"
+    restart: unless-stopped
+    healthcheck:
+      disable: true
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - TZ=UTC
+    logging: *default-logging
+    labels:
+      - "com.filix.service=appservice"
+      - "com.filix.environment=${ENVIRONMENT:-development}"
+
+  exec:
+    <<: *common
+    build: ./
+    volumes:
+      - "../../:/app"
+    command: ["bash", "-c", "${FILE}"]
+    depends_on:
+      - postgresdb
+    profiles:
+      - exec
+    logging: *default-logging
+
+  adminer:
+    <<: *common
+    container_name: filix-adminer
+    image: adminer:latest
+    hostname: adminer
+    ports:
+      - "${ADMINER_PORT:-8081}:8080"
+    depends_on:
+      postgresdb:
+        condition: service_healthy
+    profiles:
+      - db
+      - ui
+    restart: unless-stopped
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgresdb
+      - ADMINER_DESIGN=nette
+    healthcheck:
+      test: ["CMD", "php", "-r", "echo 'ok';"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    logging: *default-logging
+    labels:
+      - "com.filix.service=adminer"
+      - "com.filix.environment=${ENVIRONMENT:-development}"
+
+  builder:
+    container_name: filix-builder
+    image: "${UI_BUILDER_IMAGE:-wats-ui-builder}:${UI_BUILDER_VERSION:-latest}"
+    command: ["sh", "-c", "npm run build && npm run buildExecutable"]
+    working_dir: /app
+    volumes:
+      - "../../backend/:/app"
+      - node_modules:/app/node_modules
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+    profiles:
+      - builder
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+      - NODE_ENV=production
+    logging: *default-logging
+
+  builder-copy-nodes-modules:
+    image: "${UI_BUILDER_IMAGE:-wats-ui-builder}:${UI_BUILDER_VERSION:-latest}"
+    command: sh -c "cp -r /app/node_modules /app/node_modules_copy"
+    volumes:
+      - "../../backend/:/app"
+      - node_modules:/app/node_modules
+      - ${SSH_AUTH_SOCK}:/ssh-agent
+    profiles:
+      - builder-copier
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
+    logging: *default-logging
+
+  test-connection:
+    <<: *common
+    build:
+      context: ../..
+      dockerfile: devops/docker/Dockerfile.appservice
+      target: base
+    command:
+      - node
+      - ./backend/tests/connection-test.js
+      - "appservice"
+      - "30200"
+      - "data-loader"
+      - "11002"
+    volumes:
+      - "../../:/app"
+    profiles:
+      - builder
+    depends_on:
+      appservice:
+        condition: service_healthy
+    logging: *default-logging
+
+  appdata_migration:
+    <<: *common
+    container_name: filix-appdata-migration
+    build:
+      context: ../..
+      dockerfile: devops/docker/Dockerfile.flyway
+    hostname: appdata_migration
+    command: -locations=filesystem:/data/schemas -url=jdbc:postgresql://postgresdb:5432/${POSTGRES_DB:-appData} -user=${POSTGRES_USER:-sysdba} -password=${POSTGRES_PASSWORD:-sysdba} -community migrate
+    volumes:
+      - ../../db/schemas:/data/schemas:ro
+    environment:
+      - FLYWAY_EDITION=community
+    depends_on:
+      postgresdb:
+        condition: service_healthy
+    profiles:
+      - db
+      - ui
+    logging: *default-logging
+    labels:
+      - "com.filix.service=migration"
+      - "com.filix.environment=${ENVIRONMENT:-development}"
+
+  # Optional: Redis for caching/sessions
+  redis:
+    <<: *common
+    container_name: filix-redis
+    image: redis:7-alpine
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    profiles:
+      - ui
+      - cache
+    logging: *default-logging
+    labels:
+      - "com.filix.service=redis"
+      - "com.filix.environment=${ENVIRONMENT:-development}"
+
+volumes:
+  node_modules:
+    name: filix_node_modules
+    driver: local
+  db_data_postgres:
+    name: filix_postgres_data
+    driver: local
+  postgres_backups:
+    name: filix_postgres_backups
+    driver: local
+  filix_shm:
+    name: filix_shm
+    driver: local
+  redis_data:
+    name: filix_redis_data
+    driver: local
+
+networks:
+  filix_net:
+    name: ${APP_NETWORK:-filix_net}
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
