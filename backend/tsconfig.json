@@ -1,0 +1,35 @@
+{
+  "include": ["src/**/*", "typings"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "tests/**/*"
+  ],
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@tsconfig/node14/tsconfig.json",
+  "compilerOptions": {
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "declarationMap": false,
+    "allowJs": true,
+    "declaration": false,
+    "preserveConstEnums": false,
+    "inlineSourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "Model/*": ["src/Model/*"],
+      "Modules/*": ["src/Modules/*"],
+      "utils/*": ["src/utils/*"],
+      "fixtures/*": ["src/fixtures/*"],
+      "types/*": ["src/types/*"]
+    },
+    "removeComments": true,
+    "downlevelIteration": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "strict": true,
+    "lib": ["es2020"]
+  }
+}

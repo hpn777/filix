@@ -1,0 +1,51 @@
+;({
+  dataProviderId: 'AppDB',
+  idProperty: 'id',
+  tableName: 'api_access_app_role',
+  serviceCommand: 'GetData',
+  includeLeafs: true,
+  editable: true,
+  extensionBar: [
+    'moreContextMenu',
+    'clearFiltersButton',
+    'addGenericRow',
+    'removeSelected',
+    'groupingEditor',
+  ],
+  columns: [
+    {
+      name: 'id',
+      title: 'id',
+      type: 'number',
+      primaryKey: true,
+      editable: false,
+      hidden: true,
+    },
+    {
+      name: 'api_access_id',
+      title: 'API',
+      type: 'auto',
+      allowBlank: false,
+      formSortOrder: 1,
+      resolveView: {
+        dataProviderId: 'AppDB',
+        valueField: 'id',
+        childrenTable: 'api_access',
+        displayField: 'id',
+      },
+    },
+    {
+      name: 'app_role_id',
+      title: 'Role ID',
+      type: 'auto',
+      allowBlank: false,
+      formSortOrder: 2,
+      resolveView: {
+        dataProviderId: 'AppDB',
+        valueField: 'id',
+        childrenTable: 'app_role',
+        displayField: 'roleName',
+      },
+    },
+  ],
+})

@@ -1,0 +1,88 @@
+# Integration Tests Makefile
+# Convenience commands for Docker-based integration testing
+
+.PHONY: help test-up test-run test-down test-all test-logs test-clean test-shell test-db
+
+# Default target
+help:
+	@echo "Integration Tests - Docker Commands"
+	@echo ""
+	@echo "Quick Start:"
+	@echo "  make test-all          Run all tests (start, test, stop)"
+	@echo ""
+	@echo "Development:"
+	@echo "  make test-up           Start Docker services"
+	@echo "  make test-run          Run tests (services must be up)"
+	@echo "  make test-down         Stop services"
+	@echo ""
+	@echo "Debugging:"
+	@echo "  make test-logs         Show logs (all services)"
+	@echo "  make test-shell        Enter container shell"
+	@echo "  make test-db           Connect to PostgreSQL"
+	@echo ""
+	@echo "Cleanup:"
+	@echo "  make test-clean        Stop and remove volumes"
+	@echo "  make test-nuke         Remove everything (volumes + images)"
+
+# Run all tests (one command)
+test-all:
+	@echo "🚀 Running integration tests in Docker..."
+	npm run test:integration:docker
+
+# Start Docker services
+test-up:
+	@echo "📦 Starting Docker services..."
+	docker compose -f docker-compose.test.yml up -d --build
+	@echo "✅ Services started"
+	@docker compose -f docker-compose.test.yml ps
+
+# Run tests inside Docker
+test-run:
+	@echo "🧪 Running tests..."
+	docker compose -f docker-compose.test.yml exec filix-server npm run test:integration:inside-docker
+
+# Stop services
+test-down:
+	@echo "🛑 Stopping services..."
+	docker compose -f docker-compose.test.yml down
+	@echo "✅ Services stopped"
+
+# View logs
+test-logs:
+	docker compose -f docker-compose.test.yml logs -f
+
+# Enter container shell
+test-shell:
+	@echo "🐚 Entering container shell..."
+	docker compose -f docker-compose.test.yml exec filix-server sh
+
+# Connect to PostgreSQL
+test-db:
+	@echo "🗄️  Connecting to PostgreSQL..."
+	docker compose -f docker-compose.test.yml exec postgrestest psql -U filix_user -d appData
+
+# Clean volumes
+test-clean:
+	@echo "🧹 Cleaning up (removing volumes)..."
+	docker compose -f docker-compose.test.yml down -v
+	@echo "✅ Cleanup complete"
+
+# Nuclear option - remove everything
+test-nuke:
+	@echo "💣 Removing everything (volumes + images)..."
+	docker compose -f docker-compose.test.yml down --rmi all -v
+	@echo "✅ Everything removed"
+
+# Run specific test file (usage: make test-file FILE=database.test.ts)
+test-file:
+	@if [ -z "$(FILE)" ]; then \
+		echo "❌ Usage: make test-file FILE=database.test.ts"; \
+		exit 1; \
+	fi
+	@echo "🧪 Running $(FILE)..."
+	docker compose -f docker-compose.test.yml exec filix-server npx vitest run tests/integration/$(FILE)
+
+# Check service health
+test-status:
+	@echo "📊 Service Status:"
+	@docker compose -f docker-compose.test.yml ps

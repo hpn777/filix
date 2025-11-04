@@ -1,0 +1,16 @@
+{
+  "admin": {
+    "userName": "feliks",
+    "password": "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918",
+    "email": "feliks@gmail.com",
+    "config": "{\"settings\":[],\"assetPopUpFactors\":\"\",\"colorScheme\":\"extStylesheetCarbon\"}",
+    "displayName": "Feliks",
+    "active": true
+  },
+  "roles": [
+    {
+      "user_id": 1,
+      "roles_id": 1
+    }
+  ]
+}
