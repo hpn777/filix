@@ -6,7 +6,6 @@ import { WebSocketServer } from 'ws'
 import { BaseModule } from './base'
 import { SubscriptionManager } from '../subscriptionManager'
 import { logger } from '../utils/logger'
-import { ModuleHelpers } from './utils/ModuleHelpers'
 
 export class Module extends BaseModule {
   moduleName: string = 'WebSocketServer'

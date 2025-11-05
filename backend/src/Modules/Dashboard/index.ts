@@ -632,19 +632,7 @@ export class Module extends BaseModule {
     //TODO check if control belongs to the user
     try {
       const controlId = request.parameters.control!.id
-      const tesseract = this.evH.get('control')
-      
-      if (tesseract) {
-        const record = tesseract.getById(controlId)
-        if (record) {
-          await this.dbModule.DBModels.execQuery(
-            `DELETE FROM control WHERE id = '${controlId}'`
-          )
-          
-          // Update tesseract cache
-          tesseract.remove([record])
-        }
-      }
+      await this.dbModule.remove('control', [controlId])
 
       subscription.publish(
         {

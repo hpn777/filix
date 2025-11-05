@@ -71,7 +71,7 @@ export interface RequestParameters {
   query?: QueryConfig
   permanentFilter?: FilterCondition[]
   data?: any
-  rowIds?: number[]
+  rowIds?: number[] | string[]
   filter?: FilterCondition[]
   tabId?: string
   rpc?: boolean

@@ -16,7 +16,7 @@ export class RowsToDelete {
   async getFromDataBase<IdPropertyType>(
     tableName: string,
     columName: string,
-    rowIds: number[],
+    rowIds: number[] | string[] | (number | string)[],
   ): Promise<IdPropertyType[] | null> {
     if (!tableName || !columName) {
       logger.error('TableName and columName are required', {
@@ -58,13 +58,13 @@ export class RowsToDelete {
 
   getFromDataCache<IdPropertyType>(
     columName: string,
-    rowIds: IdPropertyType[],
+    rowIds: IdPropertyType[] | (number | string)[],
   ): IdPropertyType[] | null {
     try {
       return this.dataCache
         .getLinq()
         .where((item: TKeyValue<IdPropertyType>): boolean =>
-          rowIds.includes(item[columName]),
+          (rowIds as any[]).includes(item[columName]),
         )
         .select(this.getIdPropertyValue.bind(this))
         .toArray()

@@ -58,7 +58,6 @@
     "ws": "^8.8.0"
   },
   "devDependencies": {
-    "@tsconfig/node14": "^1.0.3",
     "@types/argparse": "^2.0.15",
     "@types/backbone": "^1.4.16",
     "@types/flat": "^5.0.5",

@@ -6,8 +6,11 @@
     "tests/**/*"
   ],
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022", "DOM"],
+    "moduleResolution": "node",
     "importHelpers": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -16,6 +19,7 @@
     "declaration": false,
     "preserveConstEnums": false,
     "inlineSourceMap": true,
+    "skipLibCheck": true,
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
@@ -29,7 +33,6 @@
     "downlevelIteration": true,
     "noImplicitAny": false,
     "strictNullChecks": true,
-    "strict": true,
-    "lib": ["es2020"]
+    "strict": true
   }
 }

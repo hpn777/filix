@@ -10,13 +10,16 @@ import { CommonHelpers } from './utils/commonHelpers'
 export class RemoveData {
   /**
    * Internal cascade remove - returns new format
-   */
-  private async cascadeRemoveInternal(
+  
+  */
+  async cascadeRemove(
     this: GenericDB,
     tableName: string,
-    rowIds: number[]
-  ): Promise<{ success: boolean; partialResults: any[] }> {
-    const toRemove: any[] = (await this.whatToDel(tableName, rowIds)) || []
+    rowIds: number[] | number | string | string[]
+  ): Promise<{ err: any; result: any }> {
+    // Normalize rowIds to always be an array
+    const normalizedRowIds = Array.isArray(rowIds) ? rowIds : [rowIds] as (number | string)[]
+    const toRemove: any[] = (await this.whatToDel(tableName, normalizedRowIds)) || []
     const result = {
       success: true,
       partialResults: [] as any[],
@@ -32,41 +35,10 @@ export class RemoveData {
       result.partialResults.push(res)
     }
 
-    return result
-  }
-
-  /**
-   * Cascade remove with backward compatible return format
-   */
-  async cascadeRemove(
-    this: GenericDB,
-    tableName: string,
-    rowIds: number[] | number | string | string[]
-  ): Promise<{ err: any; result: any }> {
-    // Normalize rowIds to number array
-    const normalizedIds = this.normalizeRowIds(rowIds)
-    
-    const result = await this.cascadeRemoveInternal(tableName, normalizedIds)
-
-    // Return backward compatible format
     return {
       err: result.success ? null : result.partialResults,
       result: result
     }
-  }
-
-  /**
-   * Normalize various rowId formats to number array
-   */
-  private normalizeRowIds(
-    this: GenericDB,
-    rowIds: number[] | number | string | string[]
-  ): number[] {
-    if (Array.isArray(rowIds)) {
-      return rowIds.map(id => typeof id === 'string' ? parseInt(id, 10) : id)
-    }
-    const id = typeof rowIds === 'string' ? parseInt(rowIds, 10) : rowIds
-    return [id]
   }
 
   async RemoveData(
@@ -74,7 +46,7 @@ export class RemoveData {
     request: any,
     subscription: Subscription,
   ): Promise<void> {
-    const { tableName, data: rowIds }: { tableName: string; data: number[] } =
+    const { tableName, data: rowIds }: { tableName: string; data: number[] | string[] } =
       request.parameters
 
     // Validate request
@@ -101,7 +73,7 @@ export class RemoveData {
 
     const result = isView
       ? await this.handleViewRemoval(tableName, rowIds, request, subscription)
-      : await this.cascadeRemoveInternal(tableName, rowIds)
+      : await this.cascadeRemove(tableName, rowIds)
 
     // Publish result
     this.publishRemovalResult(result, subscription, request.requestId)
@@ -132,10 +104,10 @@ export class RemoveData {
   async handleViewRemoval(
     this: GenericDB,
     tableName: string,
-    rowIds: number[],
+    rowIds: number[] | string[],
     request: any,
     subscription: Subscription,
-  ): Promise<{ success: boolean; partialResults: any[] }> {
+  ): Promise<{ err: any; result: any }> {
     const result = {
       success: true,
       partialResults: [] as any[],
@@ -145,7 +117,7 @@ export class RemoveData {
       await this.executeViewDelete(tableName, id, result)
     }
 
-    return result
+    return { err: result.success ? null : result.partialResults, result }
   }
 
   /**
@@ -154,7 +126,7 @@ export class RemoveData {
   async executeViewDelete(
     this: GenericDB,
     tableName: string,
-    id: number,
+    id: number | string,
     result: { success: boolean; partialResults: any[] },
   ): Promise<void> {
     try {
@@ -185,17 +157,17 @@ export class RemoveData {
    */
   publishRemovalResult(
     this: GenericDB,
-    result: { success: boolean; partialResults: any[] },
+    result: { err: null; result: any },
     subscription: Subscription,
     requestId: string,
   ): void {
-    if (!result.success) {
+    if (result.err) {
       CommonHelpers.publishError(
         subscription,
         'Removal failed',
-        JSON.stringify(result.partialResults),
+        JSON.stringify(result.err),
       )
-      logger.error(`${result.partialResults}`, {
+      logger.error(`${result.err}`, {
         module: 'GenericDB::RemoveData',
       })
     } else {
@@ -208,7 +180,7 @@ export class RemoveData {
     request: any,
     subscribtion: Subscription,
   ): Promise<void> {
-    const { tableName, rowIds }: { tableName: string; rowIds: number[] } =
+    const { tableName, rowIds }: { tableName: string; rowIds: number[] | string[] } =
       request.parameters
     const toRemove = await this.whatToDel(tableName, rowIds)
 
@@ -218,7 +190,7 @@ export class RemoveData {
   async remove(
     this: GenericDB,
     tableName: string,
-    rowIds: number[],
+    rowIds: number[] | string[],
   ): Promise<{ err: null; result: any } | undefined> {
     const tesseract = this.evH.get(tableName)
 
@@ -266,7 +238,7 @@ export class RemoveData {
    */
   async removeRecord(
     this: GenericDB,
-    rowId: number,
+    rowId: number | string,
     ormModel: any,
     tesseract: any,
     preRemoveItems: any[],
@@ -317,8 +289,8 @@ export class RemoveData {
   async hardDeleteRecord(
     this: GenericDB,
     record: any,
-    rowId: number,
-  ): Promise<number> {
+    rowId: number | string,
+  ): Promise<number | string> {
     try {
       // orm3: instance.remove() returns a Promise
       await record.remove()
@@ -350,7 +322,7 @@ export class RemoveData {
   async whatToDel(
     this: GenericDB,
     tableName: string,
-    rowIds: number[],
+    rowIds: number[] | string[] | (number | string)[]
   ): Promise<any[]> {
     let toDel: Array<any> = []
 
@@ -363,21 +335,21 @@ export class RemoveData {
         continue
       }
 
-      let rowsToDel: number[] | null = []
+      let rowsToDel: (number | string)[] | null = []
       const rowsToDelete = new RowsToDelete(this, dataCache)
 
       if (dataCache.isRemote) {
-        rowsToDel = await rowsToDelete.getFromDataBase<number>(
+        rowsToDel = await rowsToDelete.getFromDataBase<number | string>(
           referencingTable,
           column.name,
           rowIds,
         )
       } else {
-        rowsToDel = rowsToDelete.getFromDataCache<number>(column.name, rowIds)
+        rowsToDel = rowsToDelete.getFromDataCache<number | string>(column.name, rowIds)
       }
 
       if (rowsToDel?.length) {
-        toDel = toDel.concat(await this.whatToDel(referencingTable, rowsToDel))
+        toDel = toDel.concat(await this.whatToDel(referencingTable, rowsToDel as number[] | string[]))
       }
     }
 
