@@ -41,7 +41,7 @@ services:
       dockerfile: devops/docker/Dockerfile.spa
       target: base
     volumes:
-      - "../../frontend:/usr/share/nginx/html:ro"
+      - "../../frontend/dist:/usr/share/nginx/html:ro"
       - "../nginxconfig:/etc/nginx/conf.d/:ro"
     restart: unless-stopped
     ports:

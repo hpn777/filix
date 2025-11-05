@@ -13,7 +13,7 @@ import {
 import { logger } from '../../utils/logger'
 import { ModuleHelpers } from '../utils/ModuleHelpers'
 import { Module as GenericDBModule } from '../GenericDB'
-import type { ADUser, ADCallback, IdentityProvider } from './types'
+import type { IdentityProvider } from './types'
 
 const rolesDataCopy = JSON.parse(JSON.stringify(rolesData))
 

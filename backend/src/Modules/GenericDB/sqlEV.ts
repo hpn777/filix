@@ -102,7 +102,9 @@ export class SqlEV extends Cluster {
           businessDelete = true
         }
 
-        columns.push(columnDefinition)
+        if (!columns.some(existing => existing.name === columnDefinition.name)) {
+          columns.push(columnDefinition)
+        } 
       })
 
       const tesseractTemp = await this.createTesseract(tableName, {

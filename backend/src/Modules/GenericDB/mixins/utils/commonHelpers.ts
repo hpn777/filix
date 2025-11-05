@@ -1,6 +1,6 @@
 import { Subscription } from '../../../../Model/subscriptions'
 import { Module as GenericDB, getAPIKey } from '../../index'
-import { Tesseract } from '../../../../../typings/tesseract'
+import { Tesseract } from '../../../../types/tessio'
 
 /**
  * Shared helper functions for GenericDB mixins

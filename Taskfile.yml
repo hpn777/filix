@@ -1,0 +1,172 @@
+version: '3'
+
+dotenv: ['.env']
+silent: true
+workdir: .
+
+tasks:
+  default:
+    desc: List all available commands
+    cmds:
+      - task -l
+
+  # ============================================================================
+  # Build Tasks
+  # ============================================================================
+
+  build:backend:
+    desc: Build backend TypeScript code
+    dir: backend
+    cmds:
+      - npm ci
+      - npm run build
+
+  build:frontend:
+    desc: Build frontend assets
+    dir: frontend
+    cmds:
+      - npm ci
+      - npm run build
+
+  build:all:
+    desc: Build both backend and frontend
+    cmds:
+      - task: build:backend
+      - task: build:frontend
+
+  # ============================================================================
+  # Docker Build Tasks
+  # ============================================================================
+
+  docker:build:
+    desc: Build all Docker images
+    dir: devops/docker
+    cmds:
+      - docker compose build spa appservice
+
+  docker:build:spa:
+    desc: Build SPA frontend in Docker
+    dir: devops/docker
+    cmds:
+      - docker compose --profile spa-builder run --rm spa-builder
+
+  docker:setup:backend:
+    desc: Install backend dependencies in Docker volume
+    dir: devops/docker
+    cmds:
+      - docker compose run --rm appservice sh -c "cd /app && npm ci && npm run build"
+      - cmd: echo "✓ Backend dependencies installed successfully!"
+
+  # ============================================================================
+  # Run Tasks - Improved Stack
+  # ============================================================================
+
+  up:
+    desc: Start application (database + backend + frontend)
+    dir: devops/docker
+    cmds:
+      - docker compose --profile ui up -d
+      - cmd: echo "✓ Application started successfully!"
+      - cmd: echo "  - Frontend (SPA):{{"{{"}} http://localhost:8080 {{"}}"}}"
+      - cmd: echo "  - Backend API:{{"{{"}} http://localhost:30200 {{"}}"}}"
+      - cmd: echo "  - Adminer:{{"{{"}} http://localhost:8081 {{"}}"}}"
+
+  down:
+    desc: Stop and remove all containers
+    dir: devops/docker
+    cmds:
+      - docker compose --profile ui down
+
+  restart:
+    desc: Restart the application
+    cmds:
+      - task: down
+      - task: up
+
+  restart:appservice:
+    desc: Restart only the backend service
+    dir: devops/docker
+    cmds:
+      - docker compose restart appservice
+
+  # ============================================================================
+  # Database Tasks
+  # ============================================================================
+
+  db:migrate:
+    desc: Run database migrations
+    dir: devops/docker
+    cmds:
+      - docker compose run --rm appdata_migration
+
+  db:shell:
+    desc: Open PostgreSQL shell
+    cmds:
+      - docker exec -it filix-postgres psql -U ${POSTGRES_USER:-sysdba} -d ${POSTGRES_DB:-appData}
+
+  # ============================================================================
+  # Logs and Status
+  # ============================================================================
+
+  logs:
+    desc: Show logs for all services
+    dir: devops/docker
+    cmds:
+      - docker compose logs -f
+
+  logs:app:
+    desc: Show backend application logs
+    dir: devops/docker
+    cmds:
+      - docker compose logs -f appservice
+
+  logs:spa:
+    desc: Show frontend logs
+    dir: devops/docker
+    cmds:
+      - docker compose logs -f spa
+
+  status:
+    desc: Show status of all containers
+    dir: devops/docker
+    cmds:
+      - docker compose ps
+
+  # ============================================================================
+  # Development Utilities
+  # ============================================================================
+
+  shell:app:
+    desc: Open shell in backend container
+    cmds:
+      - docker exec -it filix-appservice bash
+
+  shell:db:
+    desc: Open bash shell in database container
+    cmds:
+      - docker exec -it filix-postgres bash
+
+  clean:
+    desc: Remove all containers, volumes, and images
+    dir: devops/docker
+    cmds:
+      - docker compose down -v --remove-orphans
+      - docker system prune -f
+      - cmd: echo "✓ Cleanup complete!"
+
+  # ============================================================================
+  # Environment Setup
+  # ============================================================================
+
+  env:init:
+    desc: Initialize .env file from template
+    cmds:
+      - cmd: cp -n .env.dist .env
+        ignore_error: true
+      - cmd: echo "✓ Environment file initialized. Please review .env and update as needed."
+
+  env:diff:
+    desc: Show differences between .env and .env.dist
+    cmds:
+      - cmd: diff .env .env.dist
+        ignore_error: true

@@ -1,18 +1,12 @@
 import _ from 'lodash'
-import { EventHorizon } from 'tessio'
-
 import filterOutDeletedAndOwned from './utils/filterOutDeletedAndOwned'
-import { Tesseract } from '../../../../typings/tesseract'
 import { Subscription } from '../../../Model/subscriptions'
 import { 
-  GenericDBRequest, 
-  QueryConfig, 
   SessionConfig,
-  TesseractSession,
   SessionHeader,
   ResponseData
 } from '../types'
-import { Module as GenericDB, getAPIKey } from '../index'
+import { Module as GenericDB } from '../index'
 import { logger } from '../../../utils/logger'
 import { CommonHelpers } from './utils/commonHelpers'
 
@@ -30,8 +24,6 @@ export class GetData {
       request.parameters
 
     let session: any = subscription.get('tesseractSession')
-    let tesseract: Tesseract | undefined
-    let header: SessionHeader[] | undefined
 
     if (!request.parameters.rpc) {
       subscription.requestId = request.requestId
@@ -301,7 +293,7 @@ export class GetData {
     const response: ResponseData = {
       data: responseData,
     }
-
+    
     request.parameters.requestId = request.requestId
 
     if (request.parameters.page) {
