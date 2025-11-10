@@ -324,7 +324,7 @@ export class RemoveData {
   ): Promise<any[]> {
     let toDel: Array<any> = []
 
-    const referencingColumns = this.DBModels.getReferencingColumns(tableName)
+    const referencingColumns = await this.DBModels.getReferencingColumns(tableName)
 
     for (const { tableName: referencingTable, column } of referencingColumns) {
       const dataCache = this.evH.get(referencingTable)

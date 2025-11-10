@@ -89,41 +89,10 @@ type AttributeDefinition = AttributeType | { type: 'serial'; key: true }
 
 type SessionQueryFunction = (parameters: SessionQueryParams) => Promise<SessionQueryResult>
 
-interface ColumnMetadata {
-  name: string
-  dataType: string
-  notNull: boolean
-  maxLength: number | null
-  primaryKey: boolean
-  defaultValue: unknown
-  unique: boolean
-  autoIncrement: boolean
-  referencedTableName?: string | null
-  referencedColumnName?: string | null
-  onUpdate?: string | null
-  onDelete?: string | null
-}
-
-interface OrmModelMeta {
-  columns?: ColumnMetadata[]
-  tableType?: string
-  table?: {
-    name?: string
-    schema?: string
-    type?: string
-  }
-}
-
 export type Orm3Model = OrmModel & {
-  meta: OrmModelMeta
-  tableType?: string
   count(filter: Record<string, unknown>): Promise<number>
   sessionQuery?: SessionQueryFunction
   getAllAsync?: (tableName: string) => Promise<QueryResult<Record<string, unknown>>>
-}
-
-type PropertyWithMeta = OrmProperty & {
-  meta?: ColumnMetadata
 }
 
 interface Orm3Database {
@@ -214,29 +183,13 @@ export class DBModels {
     return Object.keys(this.models)
   }
 
-  getColumns(tableName: string): ColumnMetadata[] {
+  getColumns(tableName: string): OrmProperty[] {
     const model = this.getModel(tableName)
     if (!model) {
       return []
     }
 
-    // ORM3: properties ARE the metadata - no need to access .meta
-    // Convert ORM3 property format to ColumnMetadata format
-    return Object.values(model.properties).map(prop => {
-      const ormProp = prop as any
-      return {
-        name: ormProp.name || ormProp.mapsTo,
-        dataType: ormProp.type || 'text',
-        notNull: ormProp.required || false,
-        maxLength: ormProp.size || null,
-        primaryKey: ormProp.key || false,
-        defaultValue: ormProp.defaultValue || null,
-        unique: ormProp.unique || false,
-        autoIncrement: ormProp.serial || false,
-        referencedTableName: ormProp.model || null,
-        referencedColumnName: ormProp.reverse || null,
-      } as ColumnMetadata
-    }).filter(Boolean)
+    return Object.values(model.properties)
   }
 
   getPrimaryKeyColumn(tableName: string): string {
@@ -252,7 +205,7 @@ export class DBModels {
       }
     }
 
-    const column = this.getColumns(tableName).find(item => item.primaryKey)
+    const column = this.getColumns(tableName).find(item => item.key || item.primary)
     if (column) {
       return column.name
     }
@@ -262,20 +215,36 @@ export class DBModels {
 
   getReferencingColumns(targetTableName: string): Array<{
     tableName: string
-    column: ColumnMetadata
+    column: OrmProperty & { referencedTableName?: string; referencedColumnName?: string }
   }> {
-    const references: Array<{ tableName: string; column: ColumnMetadata }> = []
+    const references: Array<{ 
+      tableName: string
+      column: OrmProperty & { referencedTableName?: string; referencedColumnName?: string }
+    }> = []
     const normalizedTarget = targetTableName.toLowerCase()
 
     this.getTableNames().forEach(tableName => {
-      const columns = this.getColumns(tableName)
-      columns.forEach(column => {
-        if (
-          column.referencedTableName &&
-          column.referencedTableName.toLowerCase() === normalizedTarget &&
-          tableName.toLowerCase() !== normalizedTarget
-        ) {
-          references.push({ tableName, column })
+      const model = this.getModel(tableName)
+      if (!model) return
+
+      // Check associations for references to target table
+      const associations = (model as any).associations || []
+      associations.forEach((assoc: any) => {
+        if (assoc.model && typeof assoc.model === 'string') {
+          if (assoc.model.toLowerCase() === normalizedTarget && tableName.toLowerCase() !== normalizedTarget) {
+            // Find the property for this association
+            const prop = model.properties[assoc.name]
+            if (prop) {
+              references.push({ 
+                tableName, 
+                column: {
+                  ...prop,
+                  referencedTableName: assoc.model,
+                  referencedColumnName: assoc.field || 'id'
+                }
+              })
+            }
+          }
         }
       })
     })
@@ -460,9 +429,8 @@ export class DBModels {
       throw new Error(`Model not found for table: ${tableName}`)
     }
 
-    // ORM3: Use getColumns instead of accessing ormModel.meta.columns
     const select =
-      requestedSelect || this.getColumns(tableName).map(col => col.referencedColumnName || col.name) || []
+      requestedSelect || this.getColumns(tableName).map(prop => prop.mapsTo || prop.name) || []
     const filters = parameters.where ?? parameters.filter
 
     const dbFilter: QueryConditions = {}

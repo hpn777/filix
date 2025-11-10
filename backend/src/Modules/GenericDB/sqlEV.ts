@@ -89,11 +89,11 @@ export class SqlEV extends Cluster {
       columnsForTable.forEach(column => {
         const columnDefinition: any = {
           name: column.name,
-          type: this.DBModels.getAttributeType(column.dataType).type,
+          type: this.DBModels.getAttributeType(column.type).type,
           title: column.name,
         }
 
-        if (column.primaryKey) {
+        if (column.key || column.primary) {
           columnDefinition.primaryKey = true
         }
 

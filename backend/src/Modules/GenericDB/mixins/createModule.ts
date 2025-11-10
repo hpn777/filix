@@ -38,34 +38,37 @@ export class CreateModule {
         title: columnMeta.name.replace(/_/g, ' '),
       }
 
-      if (columnMeta.primaryKey) {
+      if (columnMeta.key || columnMeta.primary) {
         primaryKey = columnMeta.name
         columnDefinition.primaryKey = true
-        if (columnMeta.autoIncrement) {
+        if (columnMeta.serial) {
           columnDefinition.editable = false
         }
       }
 
-      if (columnMeta.referencedTableName) {
+      // Check if this is a foreign key (ORM3 doesn't have referencedTableName directly)
+      // We rely on associations which are handled separately
+      const prop = columnMeta as any
+      if (prop.referencedTableName) {
         columnDefinition.type = 'auto'
         columnDefinition.resolveView = {
           dataProviderId: config.id,
-          childrenTable: columnMeta.referencedTableName,
+          childrenTable: prop.referencedTableName,
           remote,
-          valueField: columnMeta.referencedColumnName || 'id',
-          displayField: columnMeta.referencedColumnName || 'id',
-          addBlank: !columnMeta.notNull,
+          valueField: prop.referencedColumnName || 'id',
+          displayField: prop.referencedColumnName || 'id',
+          addBlank: !columnMeta.required,
         }
       } else {
         columnDefinition.type = this.DBModels.getAttributeType(
-          columnMeta.dataType,
+          columnMeta.type,
         ).type
       }
 
-      if (columnDefinition.type === 'text' && columnMeta.maxLength) {
-        columnDefinition.maxLength = columnMeta.maxLength
+      if (columnDefinition.type === 'text' && columnMeta.size) {
+        columnDefinition.maxLength = columnMeta.size
       }
-      if (columnMeta.notNull) {
+      if (columnMeta.required) {
         columnDefinition.allowBlank = false
       }
 

@@ -143,15 +143,15 @@ export const logger: LoggerWithCustomLevels = createLogger({
   transports: [
     new transports.Console(),
     new transports.File({
-      filename: 'filix.all.log',
+      filename: 'logs/filix.all.log',
       level: 'verbose10',
     }),
     new transports.File({
-      filename: 'filix.log',
+      filename: 'logs/filix.log',
       level: 'info',
     }),
     new transports.File({
-      filename: 'filix.error.log',
+      filename: 'logs/filix.error.log',
       level: 'error',
     }),
   ],
