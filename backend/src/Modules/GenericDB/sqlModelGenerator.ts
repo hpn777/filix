@@ -3,16 +3,13 @@ import type { Pool, QueryResult } from 'pg'
 import type {
   ConnectionConfig as OrmConnectionConfig,
   ConnectionOptions as OrmConnectionOptions,
-  DefineModelFromSchemaOptions,
   DefineModelsFromSchemaOptions,
   DriverResult,
   FindOptions as OrmFindOptions,
   Model as OrmModel,
-  ModelOptions,
   Property as OrmProperty,
   QueryConditions,
 } from 'orm3/dist/types/Core'
-import type { Column as MetaColumn, MetadataInspector, MetadataOptions } from 'orm3/dist/Drivers/DDL/meta'
 
 import { logger } from '../../utils/logger'
 import { DataBaseError } from './dataBaseError'
@@ -92,14 +89,6 @@ type AttributeDefinition = AttributeType | { type: 'serial'; key: true }
 
 type SessionQueryFunction = (parameters: SessionQueryParams) => Promise<SessionQueryResult>
 
-type Orm3Model = OrmModel & {
-  allProperties: Array<{ mapsTo: string }>
-  tableType?: string
-  count(filter: Record<string, unknown>): Promise<number>
-  sessionQuery?: SessionQueryFunction
-  getAllAsync?: (tableName: string) => Promise<QueryResult<Record<string, unknown>>>
-}
-
 interface ColumnMetadata {
   name: string
   dataType: string
@@ -115,11 +104,27 @@ interface ColumnMetadata {
   onDelete?: string | null
 }
 
+interface OrmModelMeta {
+  columns?: ColumnMetadata[]
+  tableType?: string
+  table?: {
+    name?: string
+    schema?: string
+    type?: string
+  }
+}
+
+export type Orm3Model = OrmModel & {
+  meta: OrmModelMeta
+  tableType?: string
+  count(filter: Record<string, unknown>): Promise<number>
+  sessionQuery?: SessionQueryFunction
+  getAllAsync?: (tableName: string) => Promise<QueryResult<Record<string, unknown>>>
+}
+
 type PropertyWithMeta = OrmProperty & {
   meta?: ColumnMetadata
 }
-
-type TableTypes = Record<string, string>
 
 interface Orm3Database {
   settings: {
@@ -132,14 +137,9 @@ interface Orm3Database {
     attributes: Record<string, AttributeDefinition>,
     options?: Record<string, unknown>,
   ): Orm3Model
-  defineFromSchema<T = unknown>(
-    tableName: string,
-    options?: DefineModelFromSchemaOptions<T>,
-  ): Promise<OrmModel>
   defineAllFromSchema<T = unknown>(
     options?: DefineModelsFromSchemaOptions<T>,
   ): Promise<Record<string, OrmModel>>
-  getMetadata(options?: MetadataOptions): MetadataInspector<MetaColumn>
   driver: {
     db: Pool
     find(
@@ -164,7 +164,6 @@ export class DBModels {
   private driver!: Pool
   private reconnectTimer?: NodeJS.Timeout
   private models: ModelDictionary = {}
-  private tableTypes: TableTypes = {}
   pgSubscriber?: ReturnType<typeof pgListen>
 
   constructor(options?: { config?: ConnectionConfig }) {
@@ -203,58 +202,6 @@ export class DBModels {
     })
   }
 
-  private enrichModelWithMetadata(
-    tableName: string,
-    ormModel: Orm3Model,
-    columns: ColumnMetadata[],
-  ): void {
-    const properties = ormModel.properties as Record<string, PropertyWithMeta>
-    const columnsByName = new Map<string, ColumnMetadata>()
-
-    columns.forEach(column => {
-      columnsByName.set(column.name, column)
-    })
-
-    const allProperties: Array<{ mapsTo: string }> = []
-
-    for (const [propertyName, property] of Object.entries(properties)) {
-      const columnName = property.mapsTo ?? propertyName
-      allProperties.push({ mapsTo: columnName })
-
-      const columnMeta = columnsByName.get(columnName)
-      if (!columnMeta) {
-        continue
-      }
-
-      Object.defineProperty(property, 'meta', {
-        value: columnMeta,
-        enumerable: false,
-        configurable: true,
-        writable: false,
-      })
-
-      if (columnMeta.primaryKey && property.key !== true) {
-        property.key = true
-      }
-    }
-
-    Object.defineProperty(ormModel, 'allProperties', {
-      value: allProperties,
-      enumerable: false,
-      configurable: true,
-      writable: false,
-    })
-
-    if (this.tableTypes[tableName]) {
-      Object.defineProperty(ormModel, 'tableType', {
-        value: this.tableTypes[tableName],
-        enumerable: false,
-        configurable: true,
-        writable: false,
-      })
-    }
-  }
-
   private getQualifiedTableName(tableName: string): string {
     if (this.connectionConfig?.schema) {
       return `${this.connectionConfig.schema}.${tableName}`
@@ -267,31 +214,29 @@ export class DBModels {
     return Object.keys(this.models)
   }
 
-  getTableType(tableName: string): string | undefined {
-    return this.tableTypes[tableName]
-  }
-
   getColumns(tableName: string): ColumnMetadata[] {
     const model = this.getModel(tableName)
     if (!model) {
       return []
     }
 
-    const properties = model.properties as Record<string, PropertyWithMeta>
-
-    return Object.entries(properties)
-      .map(([propertyName, property]) => {
-        const meta = property.meta
-        if (!meta) {
-          return undefined
-        }
-
-        return {
-          ...meta,
-          name: property.mapsTo ?? propertyName,
-        }
-      })
-      .filter((meta): meta is ColumnMetadata => Boolean(meta))
+    // ORM3: properties ARE the metadata - no need to access .meta
+    // Convert ORM3 property format to ColumnMetadata format
+    return Object.values(model.properties).map(prop => {
+      const ormProp = prop as any
+      return {
+        name: ormProp.name || ormProp.mapsTo,
+        dataType: ormProp.type || 'text',
+        notNull: ormProp.required || false,
+        maxLength: ormProp.size || null,
+        primaryKey: ormProp.key || false,
+        defaultValue: ormProp.defaultValue || null,
+        unique: ormProp.unique || false,
+        autoIncrement: ormProp.serial || false,
+        referencedTableName: ormProp.model || null,
+        referencedColumnName: ormProp.reverse || null,
+      } as ColumnMetadata
+    }).filter(Boolean)
   }
 
   getPrimaryKeyColumn(tableName: string): string {
@@ -338,31 +283,8 @@ export class DBModels {
     return references
   }
 
-  isView(tableName: string): boolean {
-    return this.getTableType(tableName) === 'VIEW'
-  }
-
   private getModel(tableName: string): Orm3Model | undefined {
     return this.models[tableName]
-  }
-
-  private getMetadataInspector(options?: MetadataOptions): MetadataInspector<MetaColumn> {
-    if (!this.db || typeof (this.db as Orm3Database).getMetadata !== 'function') {
-      throw new Error('Metadata inspector is not available on ORM instance')
-    }
-
-    return (this.db as Orm3Database).getMetadata(options) as MetadataInspector<MetaColumn>
-  }
-
-  private async closeMetadata(metadata: MetadataInspector<MetaColumn>): Promise<void> {
-    try {
-      await metadata.close()
-    } catch (error) {
-      logger.warn('Failed to close metadata inspector', {
-        module: 'GenericDB::DBModels',
-        objectOrArray: error,
-      })
-    }
   }
 
   async initialize() {
@@ -373,7 +295,6 @@ export class DBModels {
     }
 
     this.models = {}
-    this.tableTypes = {}
 
     await this.connectWithRetry()
   }
@@ -490,70 +411,6 @@ export class DBModels {
   }
 
   async createModels(connectionConfig: ConnectionConfig): Promise<void> {
-    let metadata: MetadataInspector<MetaColumn> | undefined
-    const columnMetadataMap: Record<string, ColumnMetadata[]> = {}
-    const tableOverrides: Record<string, DefineModelFromSchemaOptions<Record<string, unknown>>> = {}
-
-    try {
-      metadata = this.getMetadataInspector({ schema: connectionConfig.schema })
-
-      const tables = await metadata.getTables()
-
-      if (tables.length === 0) {
-        this.markAsReady()
-        return
-      }
-
-      for (const table of tables) {
-        const tableName = table.getName()
-        this.tableTypes[tableName] = table.getType()
-
-        const columns = await metadata.getColumns(tableName)
-        const mappedColumns = columns.map<ColumnMetadata>(column => ({
-          name: column.getName(),
-          dataType: column.getDataType(),
-          notNull: !column.isNullable(),
-          maxLength: column.getMaxLength() ?? null,
-          primaryKey: column.isPrimaryKey(),
-          defaultValue: column.getDefaultValue(),
-          unique: column.isUnique(),
-          autoIncrement: column.isAutoIncrementing(),
-          referencedTableName: column.getReferencedTableName(),
-          referencedColumnName: column.getReferencedColumnName(),
-          onUpdate: column.getUpdateRule(),
-          onDelete: column.getDeleteRule(),
-        }))
-
-        columnMetadataMap[tableName] = mappedColumns
-
-        const hasPrimaryKey = mappedColumns.some(column => column.primaryKey)
-        const hasIdColumn = mappedColumns.some(column => column.name === 'id')
-
-        const modelOptions: Partial<ModelOptions<Record<string, unknown>>> = {
-          cache: false,
-          table: this.getQualifiedTableName(tableName),
-        }
-
-        if (!hasPrimaryKey && hasIdColumn) {
-          modelOptions.id = 'id'
-        }
-
-        tableOverrides[tableName] = {
-          namingStrategy: 'preserve',
-          modelOptions,
-        }
-      }
-    } catch (error) {
-      logger.error(`Database Meta sniffer error: ${error}`, {
-        module: 'GenericDB::DBModels',
-      })
-      return
-    } finally {
-      if (metadata) {
-        await this.closeMetadata(metadata)
-      }
-    }
-
     try {
       const ormModels = await this.db.defineAllFromSchema<Record<string, unknown>>({
         schema: connectionConfig.schema,
@@ -565,20 +422,18 @@ export class DBModels {
             cache: false,
           },
         },
-        tableOptions: tableOverrides,
       })
 
-      for (const [tableName, model] of Object.entries(ormModels)) {
-        const ormModel = model as Orm3Model
+      const entries = Object.entries(ormModels)
 
-        this.enrichModelWithMetadata(tableName, ormModel, columnMetadataMap[tableName] ?? [])
+      if (entries.length === 0) {
+        this.markAsReady()
+        return
+      }
 
-        ormModel.sessionQuery = (parameters: SessionQueryParams) =>
-          this.sessionQuery(parameters)
-        ormModel.getAllAsync = (modelTableName: string) =>
-          this.getAllAsync(modelTableName)
+      for (const [tableName, model] of entries) {
 
-        this.registerOrmModel(tableName, ormModel)
+        this.registerOrmModel(tableName, model as Orm3Model)
       }
 
       this.markAsReady()
@@ -605,8 +460,9 @@ export class DBModels {
       throw new Error(`Model not found for table: ${tableName}`)
     }
 
+    // ORM3: Use getColumns instead of accessing ormModel.meta.columns
     const select =
-      requestedSelect ?? ormModel.allProperties.map(property => property.mapsTo)
+      requestedSelect || this.getColumns(tableName).map(col => col.referencedColumnName || col.name) || []
     const filters = parameters.where ?? parameters.filter
 
     const dbFilter: QueryConditions = {}

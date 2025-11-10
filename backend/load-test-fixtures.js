@@ -111,6 +111,44 @@ async function loadFixtures() {
     }
     console.log('✓ Test user loaded');
 
+    // Load API access permissions for integration tests
+    console.log('Loading API access permissions...');
+    const apiAccessPermissions = [
+      'AppDB.GetData.app_role',
+      'AppDB.SetData.app_role',
+      'AppDB.RemoveData.app_role',
+      'AppDB.GetData.user_data',
+      'AppDB.SetData.user_data',
+      'AppDB.RemoveData.user_data',
+    ];
+    
+    for (const permission of apiAccessPermissions) {
+      // Use UPSERT to update enforce_role if entry exists, or insert if not
+      await client.query(
+        `INSERT INTO api_access (id, audit, disable, enforce_user, enforce_role) 
+         VALUES ($1, $2, $3, $4, $5)
+         ON CONFLICT (id) DO UPDATE SET enforce_role = EXCLUDED.enforce_role`,
+        [permission, false, false, false, true]
+      );
+      
+      // Grant permission to superadmin role (role id = 1)
+      // Check if permission already exists
+      const existingPermission = await client.query(
+        `SELECT id FROM api_access_app_role 
+         WHERE api_access_id = $1 AND app_role_id = $2`,
+        [permission, 1]
+      );
+      
+      if (existingPermission.rows.length === 0) {
+        await client.query(
+          `INSERT INTO api_access_app_role (api_access_id, app_role_id) 
+           VALUES ($1, $2)`,
+          [permission, 1]
+        );
+      }
+    }
+    console.log('✓ API access permissions loaded');
+
     // Note: Additional fixtures (UI modules, tab presets, control presets, etc.) 
     // are loaded dynamically by the application on first startup
     // when it detects empty tables. This is handled by the Dashboard module.

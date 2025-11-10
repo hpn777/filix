@@ -69,11 +69,9 @@ export class RemoveData {
     }
 
     // Execute removal
-  const isView = this.DBModels.isView(tableName)
+    const isView = false
 
-    const result = isView
-      ? await this.handleViewRemoval(tableName, rowIds, request, subscription)
-      : await this.cascadeRemove(tableName, rowIds)
+    const result = await this.cascadeRemove(tableName, rowIds)
 
     // Publish result
     this.publishRemovalResult(result, subscription, request.requestId)

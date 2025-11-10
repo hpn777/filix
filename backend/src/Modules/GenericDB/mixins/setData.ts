@@ -1,5 +1,6 @@
 import { Subscription } from 'Model/subscriptions'
 import { Module as GenericDB, getAPIKey } from '../index'
+import type { Orm3Model } from '../sqlModelGenerator'
 import { isSuperAdmin } from '../../utils/user'
 import { logger } from '../../../utils/logger'
 import { CommonHelpers } from './utils/commonHelpers'
@@ -120,7 +121,7 @@ export class SetData {
     }
 
     const primaryKey = this.getPrimaryKey(modelName)
-    const ormModel = this.DBModels[modelName]
+    const ormModel: Orm3Model = this.DBModels[modelName]
     const dataArray = Array.isArray(data) ? data : [data]
 
     const updatedData = await this.saveRecords(

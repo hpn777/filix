@@ -86,6 +86,11 @@ export class Module extends BaseModule {
       this.evH = this.dbModule.evH as Cluster
     }
 
+    // Wait for event horizon to be ready before checking for existing data
+    if (typeof (this.evH as any).whenReady === 'function') {
+      await (this.evH as any).whenReady()
+    }
+
     const codebaseUiModules = uiModuleLoader()
     const modules = this.evH.get('module')?.getData() ?? []
     const tabPresets = this.evH.get('tab_preset')?.getData() ?? []
@@ -665,6 +670,11 @@ export class Module extends BaseModule {
     }
 
     const user = userDataTesseract.getById(subscription.userId)
+    if (!user) {
+      subscription.publishError({ message: 'User not found' }, request.requestId)
+      return
+    }
+
     const userRolesIds = userRolesTesseract
       .getLinq()
       .where(x => x.user_id === subscription.userId)
@@ -842,22 +852,24 @@ export class Module extends BaseModule {
   }
 
   GetUserConfig(request: Request, subscription: Subscription) {
-    const userId = subscription.userId
     const userDataTesseract = this.evH.get('user_data')
     if (!userDataTesseract) {
       subscription.publishError({ message: 'User data not available' }, request.requestId)
       return
     }
 
-    const user = userDataTesseract.getById(userId)
+    const user = userDataTesseract.getById(subscription.userId)
 
-    if (user)
+    if (user) {
       subscription.publish(
         {
           config: user.config,
         },
         request.requestId,
       )
+    } else {
+      subscription.publishError({ message: 'User not found' }, request.requestId)
+    }
   }
 
   async SaveUserConfig(request: Request, subscription: Subscription) {

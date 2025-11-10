@@ -141,18 +141,22 @@ export class Module extends BaseModule {
     )
     if (!userDataTesseract) return
 
-    ModuleHelpers.publishSuccess(subscription, request.requestId, {
-      users: userDataTesseract
-        .getLinq()
-        .select(x => ({
-          id: x.id,
-          userName: x.userName,
-          email: x.email,
-          displayName: x.displayName,
-          active: x.active,
-        }))
-        .toArray(),
-    })
+    try {
+      ModuleHelpers.publishSuccess(subscription, request.requestId, {
+        users: userDataTesseract
+          .getLinq()
+          .select(x => ({
+            id: x.id,
+            userName: x.userName,
+            email: x.email,
+            displayName: x.displayName,
+            active: x.active,
+          }))
+          .toArray(),
+      })
+    } catch (error) {
+      subscription.publishError({ message: `GetAllUsers error: ${error}` }, request.requestId)
+    }
   }
 
   GetUsers(request, subscription: Subscription) {
@@ -219,15 +223,17 @@ export class Module extends BaseModule {
           'active',
         ]
         const userDataTesseract = this.evH.get('user_data')
-        header = userDataTesseract
-          ?.getHeader()
-          .filter(x => includedColumns.some(y => y === x.name))
+        if (userDataTesseract) {
+          header = userDataTesseract
+            .getHeader()
+            .filter(x => includedColumns.some(y => y === x.name))
+        }
         break
     }
 
     subscription.publish(
       {
-        header,
+        header: header || [],
         type: 'reset',
       },
       request.requestId,

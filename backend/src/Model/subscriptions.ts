@@ -11,7 +11,7 @@ export interface SubscriptionData {
   containerId?: string
   moduleId?: string
   connectionType?: string
-  userId?: string
+  userId?: number  // Accept both string and number for flexibility
   authToken?: string
   publish?: PublishFunction
   publishError?: PublishFunction
@@ -39,7 +39,7 @@ export class Subscription extends backbone.Model {
   public containerId: string = ''
   public moduleId: string = ''
   public connectionType: string = ''
-  public userId: string = ''
+  public userId: number = 0
   public authToken: string = ''
   public publish: PublishFunction = function (_responseData, _requestId) {}
   public publishError: PublishFunction = function (_responseData, _requestId) {}
@@ -47,7 +47,14 @@ export class Subscription extends backbone.Model {
   constructor(item?: Partial<SubscriptionData>, options?: BackboneOptions) {
     super(item, options)
     if (item) {
-      Object.assign(this, item)
+      // Convert userId to number if provided as string
+      const processedItem = { ...item }
+      if (processedItem.userId !== undefined) {
+        processedItem.userId = typeof processedItem.userId === 'string' 
+          ? Number(processedItem.userId) 
+          : processedItem.userId
+      }
+      Object.assign(this, processedItem)
     }
   }
 

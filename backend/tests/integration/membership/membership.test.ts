@@ -118,29 +118,19 @@ function loadServiceConfig(): Record<string, any> {
 }
 
 function createSubscription(overrides: SubscriptionOverrides = {}): Subscription {
-  const baseUserId =
-    overrides.userId !== undefined
-      ? String(overrides.userId)
-      : `${ADMIN_USER_ID}`
+  const numericUserId =
+    typeof overrides.userId === 'number'
+      ? overrides.userId
+      : (overrides.userId !== undefined ? Number(overrides.userId) : ADMIN_USER_ID)
 
   const base = new Subscription({
     id: overrides.id ?? `sub-${Date.now()}`,
     requestId: overrides.requestId ?? `req-${Date.now()}`,
     moduleId: overrides.moduleId ?? MEMBERSHIP_ID,
-    userId: baseUserId,
+    userId: numericUserId,
+    publish: overrides.publish ?? (() => {}),
+    publishError: overrides.publishError ?? (() => {}),
   })
-
-  const numericUserId =
-    typeof overrides.userId === 'number'
-      ? overrides.userId
-      : Number(overrides.userId ?? ADMIN_USER_ID)
-
-  if (!Number.isNaN(numericUserId)) {
-    base.set('userId', numericUserId)
-  }
-
-  base.publish = overrides.publish ?? (() => {})
-  base.publishError = overrides.publishError ?? (() => {})
 
   return base
 }

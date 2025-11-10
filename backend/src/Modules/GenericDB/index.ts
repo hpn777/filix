@@ -107,6 +107,30 @@ class Module extends BaseModule {
       return false
     }
 
+    // Check if the api_access entry exists and get enforce_role flag
+    const apiAccessTesseract = membershipDP.evH.get('api_access')
+    if (!apiAccessTesseract) {
+      logger.warn('api_access tesseract not found', {
+        module: this.config.id,
+      })
+      return false
+    }
+
+    const apiKey = getAPIKey(request)
+    const apiAccessEntry = apiAccessTesseract.getById(apiKey)
+    
+    // If no api_access entry exists, deny access
+    if (!apiAccessEntry) {
+      return false
+    }
+
+    // If enforce_role is false or null, allow access to any authenticated user
+    if (!apiAccessEntry.enforce_role) {
+      return true
+    }
+
+
+    // If enforce_role is true, check user roles against api_access_app_role
     const apiAccessInstance = this.getApiAccess(request)
     if (!apiAccessInstance.length) {
       return false
@@ -124,7 +148,7 @@ class Module extends BaseModule {
       .getLinq()
       .any(
         x =>
-          x.user_id === subscription.get('userId') &&
+          x.user_id === subscription.userId &&
           !!apiAccessInstance.some(ar => ar.app_role_id === x.roles_id),
       )
   }
