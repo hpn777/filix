@@ -1,0 +1,82 @@
+session_id: &session_id 1
+cb_mem_path: &cb_mem_path './shm/cb.{session_id}.mem'
+
+services:
+  ui:
+    session_id: *session_id
+    membership_module: Membership
+    modules:
+      # membership module has to be loaded first as other modules use it when generating public access
+      - id: Membership
+        module_path: "./Modules/Membership"
+        db_module: AppDB
+#        activeDirectory:
+#          usernameKey: 'sAMAccountName'
+#          adGroup: 'FILIX_Group'
+#          servers:
+#          - url: 'ldap://172.20.16.42'
+#            baseDN: 'dc=dcwatsdev,dc=cloudgpw,dc=pl'
+#            lookupDN: 'dc=dcwatsdev,dc=cloudgpw,dc=pl'
+#            lookupUsername: 'cn=ad,cn=Users,dc=dcwatsdev,dc=cloudgpw,dc=pl'
+#            lookupPassword: '1qazXSW@'
+      - id: AppDB
+        module_path: "./Modules/GenericDB"
+        autofetch: true
+        db_config:
+          protocol: pg
+          user: sysdba
+          password: sysdba
+          host: postgresdb
+          port: 5432
+          database: appData
+          schema: public
+          query:
+            pool: true
+#      - id: CoreBusMonitor
+#        module_path: "./Modules/CoreBusMonitor"
+#        mem_reader:
+##          path: "../../n8-core/data/cb.1.mem"
+##          path: './config/cb.1.mem'
+#          path: *cb_mem_path
+#          size: 100000000
+#          num: 5
+#          overlap: 1500
+#          writable: false
+#          poll_interval: 10
+#          reconnect_interval: 1000
+#        sequencer:
+#          tx:
+#            interface: appservice
+##            0.0.0.0
+#            address: 224.1.1.1
+#            port: 10001
+#            retry_count: 10000
+#            retry_delay: 1000
+#        session_id: *session_id
+#        target_id: 666
+#      - id: OrderBlotter
+#        module_path: "./n8/dist/OrderBlotter"
+#        coreBusClient: *coreBusClient
+#      - id: CoreStorageMonitor
+#        module_path: "./Modules/CoreStorageMonitor"
+#        protocol: ws
+#        host: wats-platform
+#        port: 17023
+#        reconnect_interval: 2000
+#      - id: MMMonitor
+#        module_path: "./Modules/MMMonitor"
+#        protocol: ws
+#        host: wats-platform
+#        port: 17024
+#        retry_delay: 2000
+      - id: Dashboard
+        module_path: "./Modules/Dashboard"
+        db_module: AppDB
+        membership_module: Membership
+      - id: ServerManager
+        module_path: "./Modules/ServerManager"
+        port: 1177
+      - id: WebSocketServer
+        module_path: "./Modules/WebSocketServer"
+        port: 30200
+        host: appservice

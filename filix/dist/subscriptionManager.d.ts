@@ -1,0 +1,33 @@
+import { AwilixContainer } from 'awilix';
+import { GenericBaseModule } from './Modules/base';
+import { Subscriptions } from './Model/subscriptions';
+declare class SubscriptionManager {
+    private config;
+    private container;
+    subscriptions: Subscriptions;
+    connections: any[];
+    modules: GenericBaseModule[];
+    moduleName: string;
+    private moduleConfigs;
+    private modulePromises;
+    constructor(config: any, container: AwilixContainer);
+    Subscribe(request: any): Promise<void>;
+    Unsubscribe(request: any): void;
+    clearSubscription(subscriptionId: any): void;
+    UnsubscribeContainer(request: any): void;
+    UnsubscribeClient(clientId: any): void;
+    Login(request: any): void;
+    Execute(request: any): void;
+    private createPublish;
+    private createPublishError;
+    private Publish;
+    private PublishError;
+    private getModuleToken;
+    private registerModuleFactory;
+    private registerModuleInstance;
+    getModule(moduleId: any): Promise<GenericBaseModule>;
+    private loadModule;
+    resolveModule<T = any>(moduleId: string): Promise<T>;
+    getDefaultMembershipModule(): GenericBaseModule;
+}
+export { SubscriptionManager };

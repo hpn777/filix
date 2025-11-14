@@ -1,0 +1,314 @@
+[
+    {
+        "id": 3,
+        "name": "User Editor",
+        "moduleClassName": "GenericForm",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/UserEditor/v1.js",
+                "public": true,
+                "id": 2
+            },
+            {
+                "version": 2,
+                "path": "systemUiModules/System/UserEditor/v2.js",
+                "public": true,
+                "id": 199
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 4,
+        "name": "Users",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/Users/v1.js",
+                "public": true,
+                "id": 3
+            },
+            {
+                "version": 2,
+                "path": "systemUiModules/System/Users/v2.js",
+                "public": true,
+                "id": 200
+            },
+            {
+                "version": 3,
+                "path": "systemUiModules/System/Users/v3.js",
+                "public": true,
+                "id": 367
+            },
+            {
+                "version": 4,
+                "path": "systemUiModules/System/Users/v4.js",
+                "public": true,
+                "id": 550
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 5,
+        "name": "User roles",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/Userroles/v1.js",
+                "public": true,
+                "id": 4
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 6,
+        "name": "Modules",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/Modules/v1.js",
+                "public": true,
+                "id": 5
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 7,
+        "name": "Modules Editor",
+        "moduleClassName": "GenericForm",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/ModulesEditor/v1.js",
+                "public": true,
+                "id": 6
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 23,
+        "name": "Page presets",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/Pagepresets/v1.js",
+                "public": true,
+                "id": 7
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 73,
+        "name": "AppService Status",
+        "moduleClassName": "Admin.ServerStatus",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/AppServiceStatus/v1.js",
+                "public": true,
+                "id": 8
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 88,
+        "name": "System log viewer",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "System",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/Systemlogviewer/v1.js",
+                "public": true,
+                "id": 9
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 100,
+        "name": "API Access",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/APIAccess/v1.js",
+                "public": true,
+                "id": 10
+            },
+            {
+                "version": 2,
+                "path": "systemUiModules/System/APIAccess/v2.js",
+                "public": true,
+                "id": 297
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 127,
+        "name": "Audit Log",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/AuditLog/v1.js",
+                "public": true,
+                "id": 11
+            },
+            {
+                "version": 2,
+                "path": "systemUiModules/System/AuditLog/v2.js",
+                "public": true,
+                "id": 389
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 142,
+        "name": "AppDB Tables",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/AppDBTables/v1.js",
+                "public": true,
+                "id": 15
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 15378,
+        "name": "Module Versions",
+        "moduleClassName": "GenericGrid",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": null,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/ModuleVersions/v1.js",
+                "public": true,
+                "id": 128
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 15379,
+        "name": "Module Version Editor",
+        "moduleClassName": "GenericForm",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": null,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/ModuleVersionEditor/v1.js",
+                "public": true,
+                "id": 129
+            },
+            {
+                "version": 2,
+                "path": "systemUiModules/System/ModuleVersionEditor/v2.js",
+                "public": true,
+                "id": 140
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 15448,
+        "name": "Query Tester",
+        "moduleClassName": "GenericGrid",
+        "moduleType": null,
+        "moduleGroup": "System",
+        "parentId": null,
+        "description": null,
+        "versions": [
+            {
+                "id": 207,
+                "version": 1,
+                "path": "systemUiModules/System/QueryTester/v1.js",
+                "public": true
+            }
+        ],
+        "roles": [1]
+    },
+    {
+        "id": 25495,
+        "name": "API Access Rights",
+        "moduleClassName": "GenericTree",
+        "moduleType": "system",
+        "moduleGroup": "System",
+        "parentId": 0,
+        "description": null,
+        "versions": [
+            {
+                "version": 1,
+                "path": "systemUiModules/System/ApiAccessRights/v1.js",
+                "public": true,
+                "id": 298
+            }
+        ],
+        "roles": [1]
+    }
+]

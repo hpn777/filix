@@ -1,0 +1,211 @@
+services:
+  # PostgreSQL database for tests
+  postgrestest:
+    image: postgres:15-alpine
+    container_name: filix-postgres-test
+    environment:
+      POSTGRES_DB: appData
+      POSTGRES_USER: filix_user
+      POSTGRES_PASSWORD: filix_pass
+      PGPASSWORD: filix_pass
+      POSTGRES_INITDB_ARGS: --encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    ports:
+      - "5432:5432"
+    volumes:
+      # Schema is handled by flyway-test-migration service
+      # - ../db/init-test.sql:/docker-entrypoint-initdb.d/init-test.sql:ro
+      - postgres-test-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d appData -U filix_user"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    cap_add:
+      - SYS_NICE
+    networks:
+      - filix-test-network
+
+  # OpenLDAP server for LDAP integration tests
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: filix-openldap-test
+    environment:
+      LDAP_ORGANISATION: "Filix Test Corp"
+      LDAP_DOMAIN: "filix.test"
+      LDAP_ADMIN_PASSWORD: "admin_password"
+      LDAP_CONFIG_PASSWORD: "config_password"
+      LDAP_READONLY_USER: "true"
+      LDAP_READONLY_USER_USERNAME: "readonly"
+      LDAP_READONLY_USER_PASSWORD: "readonly_password"
+      LDAP_RFC2307BIS_SCHEMA: "false"
+      LDAP_BACKEND: "mdb"
+      LDAP_TLS: "false"
+      LDAP_REPLICATION: "false"
+      KEEP_EXISTING_CONFIG: "false"
+      LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+      LDAP_SSL_HELPER_PREFIX: "ldap"
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes:
+      - ./tests/ldap/data:/container/service/slapd/assets/test
+      - ./tests/ldap/init:/container/service/slapd/assets/config/bootstrap/ldif/custom
+      - openldap-data:/var/lib/ldap
+      - openldap-config:/etc/ldap/slapd.d
+    command: --copy-service --loglevel debug
+    healthcheck:
+      test: ["CMD-SHELL", "ldapsearch -x -H ldap://localhost -b dc=filix,dc=test -D 'cn=admin,dc=filix,dc=test' -w admin_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - filix-test-network
+
+  # Samba Active Directory for AD integration tests  
+  sambaad:
+    image: diegogslomp/samba-ad-dc
+    container_name: filix-samba-ad-test
+    privileged: true
+    environment:
+      REALM: filix.test
+      DOMAIN: FILIX
+      ADMIN_PASS: Admin123!
+      DNS_FORWARDER: 8.8.8.8
+    ports:
+      - "10053:53"
+      - "10053:53/udp"
+      - "10088:88"
+      - "10088:88/udp"
+      - "10135:135"
+      - "10137-10138:137-138/udp"
+      - "10139:139"
+      - "10389:389/tcp"
+      - "10445:445"
+      - "10464:464"
+      - "10464:464/udp"
+      - "10636:636/tcp"
+      - "11024-11044:1024-1044"
+      - "13268-13269:3268-3269"
+    volumes:
+      - samba-data:/var/lib/samba
+      - samba-config:/etc/samba/external
+      - ./tests/ad/init:/init-scripts
+    cap_add:
+      - NET_ADMIN
+    networks:
+      filix-test-network:
+        ipv4_address: 172.26.0.10
+    hostname: dc1
+    domainname: filix.test
+    healthcheck:
+      test: ["CMD-SHELL", "smbclient -L localhost -U% || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Flyway migration for test database schema
+  flyway-test-migration:
+    build:
+      context: ..
+      dockerfile: devops/docker/Dockerfile.flyway
+    container_name: filix-flyway-test
+    command: -locations=filesystem:/data/schemas -url=jdbc:postgresql://postgrestest:5432/${POSTGRES_DB:-appData} -user=${POSTGRES_USER:-filix_user} -password=${POSTGRES_PASSWORD:-filix_pass} -community migrate
+    volumes:
+      - ../db/schemas:/data/schemas:ro
+    environment:
+      - FLYWAY_EDITION=community
+    depends_on:
+      postgrestest:
+        condition: service_healthy
+    networks:
+      - filix-test-network
+    restart: "no"
+
+  # Load test fixtures after schema migration
+  fixture-loader:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: filix-fixture-loader
+    working_dir: /app
+    environment:
+      NODE_ENV: test
+      DB_HOST: postgrestest
+      DB_PORT: 5432
+      DB_NAME: appData
+      DB_USER: filix_user
+      DB_PASSWORD: filix_pass
+      TZ: UTC
+    depends_on:
+      postgrestest:
+        condition: service_healthy
+      flyway-test-migration:
+        condition: service_completed_successfully
+    networks:
+      - filix-test-network
+    command: ["node", "load-test-fixtures.js"]
+    restart: "no"
+
+  # Application server for WebSocket tests
+  filix-server:
+    image: node:18-alpine
+    container_name: filix-server-test
+    working_dir: /app
+    hostname: filix-server-test
+    environment:
+      NODE_ENV: test
+      IN_DOCKER: "true"
+      DB_HOST: postgrestest
+      DB_PORT: 5432
+      DB_NAME: appData
+      DB_USER: filix_user
+      DB_PASSWORD: filix_pass
+      LDAP_URL: ldap://openldap:389
+      LDAP_BASE_DN: dc=filix,dc=test
+      LDAP_ADMIN_DN: cn=admin,dc=filix,dc=test
+      LDAP_ADMIN_PASSWORD: admin_password
+      AD_URL: ldap://sambaad:389
+      AD_BASE_DN: dc=filix,dc=test
+      AD_DOMAIN: FILIX
+      AD_ADMIN_USER: Administrator@filix.test
+      AD_ADMIN_PASSWORD: Admin123!
+      SERVER_PORT: 3000
+      LOG_LEVEL: info
+      TZ: UTC
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgrestest:
+        condition: service_healthy
+      flyway-test-migration:
+        condition: service_completed_successfully
+      fixture-loader:
+        condition: service_completed_successfully
+      openldap:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+    command: ["node", "-r", "source-map-support/register", "./dist/server.js", "-c", "./config/test.yml"]
+    networks:
+      - filix-test-network
+    restart: unless-stopped
+    healthcheck:
+      disable: true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  filix-test-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.26.0.0/16
+
+volumes:
+  postgres-test-data:
+  openldap-data:
+  openldap-config:
+  samba-data:
+  samba-config:

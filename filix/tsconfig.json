@@ -1,0 +1,38 @@
+{
+  "include": ["src/**/*", "typings"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "tests/**/*"
+  ],
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022", "DOM"],
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "declarationMap": false,
+    "allowJs": true,
+  "declaration": true,
+    "preserveConstEnums": false,
+    "inlineSourceMap": true,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "paths": {
+      "Model/*": ["src/Model/*"],
+      "Modules/*": ["src/Modules/*"],
+      "utils/*": ["src/utils/*"],
+      "fixtures/*": ["src/fixtures/*"],
+      "types/*": ["src/types/*"]
+    },
+    "removeComments": true,
+    "downlevelIteration": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "strict": true
+  }
+}

@@ -1,0 +1,23 @@
+import { LeveledLogMethod as LeveledLogMethodFromWinston, Logger } from 'winston';
+export type LeveledLogMethod = LeveledLogMethodFromWinston;
+type CustomLevels = {
+    init: LeveledLogMethod;
+    critical: LeveledLogMethod;
+    error: LeveledLogMethod;
+    warn: LeveledLogMethod;
+    info: LeveledLogMethod;
+    debug: LeveledLogMethod;
+    verbose1: LeveledLogMethod;
+    verbose2: LeveledLogMethod;
+    verbose3: LeveledLogMethod;
+    verbose4: LeveledLogMethod;
+    verbose5: LeveledLogMethod;
+    verbose6: LeveledLogMethod;
+    verbose7: LeveledLogMethod;
+    verbose8: LeveledLogMethod;
+    verbose9: LeveledLogMethod;
+    verbose10: LeveledLogMethod;
+};
+export type LoggerWithCustomLevels = Logger & CustomLevels;
+export declare const logger: LoggerWithCustomLevels;
+export {};

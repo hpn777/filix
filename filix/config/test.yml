@@ -1,0 +1,35 @@
+session_id: &session_id 1
+
+services:
+  ui:
+    session_id: *session_id
+    membership_module: Membership
+    modules:
+      - id: Membership
+        module_path: "./Modules/Membership"
+        db_module: AppDB
+        skipFixtureLoading: true
+      - id: AppDB
+        module_path: "./Modules/GenericDB"
+        autofetch: true
+        db_config:
+          protocol: pg
+          user: ${DB_USER:-filix_user}
+          password: ${DB_PASSWORD:-filix_pass}
+          host: ${DB_HOST:-localhost}
+          port: ${DB_PORT:-5432}
+          database: ${DB_NAME:-appData}
+          schema: public
+          query:
+            pool: true
+      - id: Dashboard
+        module_path: "./Modules/Dashboard"
+        db_module: AppDB
+        membership_module: Membership
+      - id: ServerManager
+        module_path: "./Modules/ServerManager"
+        port: 1177
+      - id: WebSocketServer
+        module_path: "./Modules/WebSocketServer"
+        port: 3000
+        host: localhost
