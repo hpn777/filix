@@ -6,11 +6,11 @@ services:
     membership_module: Membership
     modules:
       - id: Membership
-        module_path: "./Modules/Membership"
+        module_path: "filix/dist/Modules/Membership"
         db_module: AppDB
         skipFixtureLoading: true
       - id: AppDB
-        module_path: "./Modules/GenericDB"
+        module_path: "filix/dist/Modules/GenericDB"
         autofetch: true
         db_config:
           protocol: pg
@@ -23,13 +23,13 @@ services:
           query:
             pool: true
       - id: Dashboard
-        module_path: "./Modules/Dashboard"
+        module_path: "filix/dist/Modules/Dashboard"
         db_module: AppDB
         membership_module: Membership
       - id: ServerManager
-        module_path: "./Modules/ServerManager"
+        module_path: "filix/dist/Modules/ServerManager"
         port: 1177
       - id: WebSocketServer
-        module_path: "./Modules/WebSocketServer"
+        module_path: "filix/dist/Modules/WebSocketServer"
         port: 3000
         host: localhost

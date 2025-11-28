@@ -7,14 +7,19 @@
     "prestart": "npm run build",
     "start": "node dist/server.js",
     "start:dev": "ts-node src/server.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "test:integration:docker": "docker compose -f docker-compose.test.yml up --build -d && docker compose -f docker-compose.test.yml exec -T filix-server npm run test:integration:inside-docker;",
+    "test:integration:inside-docker": "IN_DOCKER=true vitest run tests/integration",
+    "test:down": "docker compose -f docker-compose.test.yml down;"
   },
   "dependencies": {
-    "filix": "file:../filix"
+    "filix": "file:../filix",
+    "pg": "^8.11.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^3.0.0"
   }
 }

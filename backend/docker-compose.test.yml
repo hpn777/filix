@@ -126,8 +126,8 @@ services:
   # Load test fixtures after schema migration
   fixture-loader:
     build:
-      context: .
-      dockerfile: Dockerfile.test
+      context: ..
+      dockerfile: backend/Dockerfile.test
     container_name: filix-fixture-loader
     working_dir: /app
     environment:
@@ -150,7 +150,9 @@ services:
 
   # Application server for WebSocket tests
   filix-server:
-    image: node:18-alpine
+    build:
+      context: ..
+      dockerfile: backend/Dockerfile.test
     container_name: filix-server-test
     working_dir: /app
     hostname: filix-server-test
@@ -186,8 +188,10 @@ services:
       openldap:
         condition: service_healthy
     volumes:
-      - ./:/app
-    command: ["node", "-r", "source-map-support/register", "./dist/server.js", "-c", "./config/test.yml"]
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./config:/app/config
+    command: ["node", "./dist/server.js", "-c", "./config/test.yml"]
     networks:
       - filix-test-network
     restart: unless-stopped

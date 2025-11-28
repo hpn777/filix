@@ -10,19 +10,29 @@ RUN apk add --no-cache \
     wget \
     openldap-clients
 
-# Copy package files
-COPY package*.json ./
-COPY tsconfig.json ./
+# Copy filix module first (local dependency)
+COPY filix /filix
+WORKDIR /filix
+RUN npm ci && npm run build
 
-# Install dependencies
+# Switch to app directory
+WORKDIR /app
+
+# Copy package files
+COPY backend/package*.json ./
+COPY backend/tsconfig.json ./
+
+# Update filix path for Docker environment
+RUN sed -i 's|"filix": "file:../filix"|"filix": "file:/filix"|g' package.json
+
+# Install dependencies (this will link to /filix)
 RUN npm ci
 
 # Copy source code
-COPY src ./src
-COPY tests ./tests
-COPY config ./config
-COPY typings ./typings
-COPY load-test-fixtures.js ./
+COPY backend/src ./src
+COPY backend/tests ./tests
+COPY backend/config ./config
+COPY backend/load-test-fixtures.js ./
 
 # Build TypeScript
 RUN npm run build || true
